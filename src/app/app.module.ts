@@ -4,15 +4,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTabsModule } from '@angular/material/tabs';
+import { DriverListComponent } from './components/driver-list/driver-list.component';
+import { RaceListComponent } from './components/race-list/race-list.component'; 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DriverListComponent,
+    RaceListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
