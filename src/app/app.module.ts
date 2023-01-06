@@ -6,7 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DriverListComponent } from './components/driver-list/driver-list.component';
-import { RaceListComponent } from './components/race-list/race-list.component'; 
+import { RaceListComponent } from './components/race-list/race-list.component';
+import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from "@angular/router/testing";
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { RaceListComponent } from './components/race-list/race-list.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatTabsModule
+    MatTabsModule,
+    RouterModule,
+    RouterTestingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
