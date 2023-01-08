@@ -7,6 +7,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
+import { MatTableModule } from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
 import { DriverListComponent } from './components/driver-list/driver-list.component';
@@ -16,7 +18,7 @@ import { RaceListComponent } from './components/race-list/race-list.component';
   declarations: [
     AppComponent,
     DriverListComponent,
-    RaceListComponent
+    RaceListComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,9 @@ import { RaceListComponent } from './components/race-list/race-list.component';
     RouterModule,
     RouterTestingModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

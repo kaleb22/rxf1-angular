@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, switchMap, map, tap, of, Observable, throwError, catchError } from 'rxjs';
+import { BehaviorSubject, switchMap, map, tap, of, Observable, throwError, catchError, shareReplay } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { IDriver } from '../model/idriver';
 
@@ -25,7 +25,8 @@ export class DriversService {
           this.http.get<any>(`${this.url}${season}/drivers.json`).pipe(
             map(data => data.MRData.DriverTable.Drivers as IDriver[]),
             catchError(this.handleError)
-        ) : of(null))
+        ) : of(null)),
+      shareReplay(1),
   );
 
   private handleError(err: HttpErrorResponse): Observable<never> {
