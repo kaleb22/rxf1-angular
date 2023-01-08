@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatOptionSelectionChange } from '@angular/material/core';
+import { Observable } from 'rxjs';
+import { IDriver } from 'src/app/model/idriver';
+import { DriversService } from 'src/app/services/drivers.service';
 
 
 @Component({
@@ -7,13 +10,17 @@ import { MatOptionSelectionChange } from '@angular/material/core';
   templateUrl: './driver-list.component.html',
   styleUrls: ['./driver-list.component.scss']
 })
-export class DriverListComponent {
+export class DriverListComponent implements OnInit {
 
   seasons: string[];
   seasonSelected: string;
+  driverList$ = this.driverService.driverList$;
 
-  constructor() {
+  constructor(private driverService: DriversService) {
     this.seasons = ['2018', '2019', '2020', '2021', '2022'];
+  }
+
+  ngOnInit(): void {
   }
 
   /* the behaviour of onSelectionChange is the following:
@@ -22,7 +29,7 @@ export class DriverListComponent {
   */
   onSeasonSelected($event: MatOptionSelectionChange, seasonSelected: string) {
     if($event.isUserInput) {
-      console.log('season selected => ', seasonSelected);
+      this.driverService.seasonSelected(seasonSelected);
     }
   }
 

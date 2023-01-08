@@ -11,4 +11,11 @@
       </mat-select>
     </mat-form-field>
   </div>
+
+  <div *ngIf="driverList$ | async as drivers">
+    <div *ngFor="let driver of drivers">
+      <p>{{ driver.givenName + ' ' + driver.familyName }}</p>
+    </div>
+    
+  </div>
 </div>
