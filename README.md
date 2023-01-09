@@ -1,5 +1,11 @@
 # Rxf1Angular
 
+https://gist.github.com/Villanuevand/54e67c30260e7424d6b3264cf6dfb058
+https://danielk.tech/home/angular-http-cache-how-to
+https://github.com/DeborahK/Angular-ReactiveDevelopment
+https://www.youtube.com/watch?v=CZYAph73mnI
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.0.
 
 ## Development server
