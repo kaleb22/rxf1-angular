@@ -26,7 +26,6 @@ export class DriversService {
             map(data => data.MRData.DriverTable.Drivers as IDriver[]),
             catchError(this.handleError)
         ) : of(null)),
-      shareReplay(1),
   );
 
   private handleError(err: HttpErrorResponse): Observable<never> {

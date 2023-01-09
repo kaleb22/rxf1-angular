@@ -1,0 +1,35 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  padding-top: 50px;
+  flex-direction: column;
+  align-items: center;
+
+  &__races {
+    padding-top: 25px;
+    width: 60%;
+  }
+}
+
+.mat-table-width {
+  width: 340px;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: currentColor;
+  background-color: #6161d9;
+}
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}
+
+.highlight {
+  background-color: #6161d9;
+}

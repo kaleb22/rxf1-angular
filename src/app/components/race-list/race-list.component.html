@@ -1,1 +1,36 @@
-<p>race-list works!</p>
+<div class="wrapper">
+  <p>Here you will find a list of all F1 races per season. Please, use the select box bellow to search for different seasons :)</p>
+  <div class="wrapper__races">
+    <mat-form-field appearance="fill">
+      <mat-label>Current Season</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let season of seasons" [value]="season"
+        (onSelectionChange)="onSeasonSelected($event, season)">
+          {{ season }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div style="width:60%;" *ngIf="raceList$ | async as races">
+    <div class="mat-table-width">
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="race-name">
+          <th mat-header-cell *matHeaderCellDef> Race's name </th>
+          <td mat-cell *matCellDef="let race"> {{ race.raceName }}</td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row 
+            *matRowDef="let row; columns: columnsToDisplay"
+            (click)="onRaceSelected(row.round)"
+            [ngClass]="{'highlight': row.isClicked }"
+        ></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[10, 20, 30]"
+                      showFirstLastButtons
+                      aria-label="select page of races">
+      </mat-paginator>
+    </div>
+  </div>
+</div>
