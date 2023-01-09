@@ -12,11 +12,11 @@
     </mat-form-field>
   </div>
 
-  <div style="width:60%;" *ngIf="raceList$ | async as races">
+  <div *ngIf="raceList$ | async as races">
     <div class="mat-table-width">
       <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="race-name">
-          <th mat-header-cell *matHeaderCellDef> Race's name </th>
+          <th mat-header-cell *matHeaderCellDef> Race name </th>
           <td mat-cell *matCellDef="let race"> {{ race.raceName }}</td>
         </ng-container>
   
