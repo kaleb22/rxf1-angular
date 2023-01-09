@@ -9,10 +9,17 @@ import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { NgHttpCachingModule, NgHttpCachingConfig } from 'ng-http-caching';
 
 import { AppComponent } from './app.component';
 import { DriverListComponent } from './components/driver-list/driver-list.component';
 import { RaceListComponent } from './components/race-list/race-list.component';
+
+
+const ngHttpCachingConfig: NgHttpCachingConfig = {
+  lifetime: 1000 * 60 * 10, // cache expire after 10 min,
+  allowedMethod: ['GET', 'HEAD']
+};
 
 @NgModule({
   declarations: [
@@ -30,7 +37,8 @@ import { RaceListComponent } from './components/race-list/race-list.component';
     MatSelectModule,
     HttpClientModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgHttpCachingModule.forRoot(ngHttpCachingConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]

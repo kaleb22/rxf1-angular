@@ -13,9 +13,6 @@
   </div>
 
   <div *ngIf="driverList$ | async as drivers">
-    <!-- <div *ngFor="let driver of drivers">
-      <p>{{ driver.givenName + ' ' + driver.familyName }}</p>
-    </div> -->
       <table mat-table [dataSource]="dataSource">
         
         <!-- -->
