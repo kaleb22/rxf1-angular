@@ -16,6 +16,7 @@ import { DriverListComponent } from './components/driver-list/driver-list.compon
 import { RaceListComponent } from './components/race-list/race-list.component';
 import { RaceListWrapperComponent } from './components/race-list-wrapper/race-list-wrapper.component';
 import { RaceDetailsComponent } from './components/race-details/race-details.component';
+import { ResultsComponent } from './components/results/results.component';
 
 
 const ngHttpCachingConfig: NgHttpCachingConfig = {
@@ -30,6 +31,7 @@ const ngHttpCachingConfig: NgHttpCachingConfig = {
     RaceListComponent,
     RaceListWrapperComponent,
     RaceDetailsComponent,
+    ResultsComponent,
   ],
   imports: [
     BrowserModule,

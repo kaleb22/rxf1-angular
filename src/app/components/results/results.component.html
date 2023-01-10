@@ -1,0 +1,13 @@
+<p><strong>{{title}}</strong></p>
+<div class="wrapper-title">
+  <p>position</p>
+  <span>|</span>
+  <p>driver's name</p>
+  <span>|</span>
+  <p>constructor</p>
+</div>
+<div class="wrapper-results">
+  <div *ngFor="let result of results;">
+    <p>{{result.position}} | {{result.driverName}} | {{result.constructor}} </p>
+  </div>
+</div>

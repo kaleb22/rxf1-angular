@@ -11,7 +11,7 @@ export class RacesService {
 
   constructor(private http: HttpClient) { }
 
-  private races_url = 'http://ergast.com/api/f1/';
+  private races_url = 'http://ergast.com/api/f1';
   
   /*
     1 - get the list of races within a year ( http://ergast.com/api/f1/2018.json )
@@ -35,11 +35,31 @@ export class RacesService {
     this.roundSelectedSubject.next(round);
   }
 
+  qualifyingList$ = this.roundSelected$.pipe(
+    withLatestFrom(this.raceSeasonSelected$),
+    switchMap( ([round, season]) => 
+      this.http.get<any>(`${this.races_url}/${season}/${round}/qualifying.json`).pipe(
+        map( response => {
+          let resultsArr: IResult[];
+          resultsArr = response.MRData.RaceTable.Races[0].QualifyingResults.map( (responseResult:any) => {
+            let result: IResult = {
+              position: responseResult.position,
+              driverName: `${responseResult.Driver.givenName} ${responseResult.Driver.familyName}`,
+              constructor: responseResult.Constructor.constructorId
+            }
+            return result;
+          });
+          return resultsArr;
+        })
+      )
+    )
+  )
+
   resultsList$ = this.roundSelected$.pipe(
     withLatestFrom(this.raceSeasonSelected$),
     tap(([round, season]) => console.log('round / season ', round + ' ' + season)),
     switchMap( ([round, season]) => 
-      this.http.get<any>(`${this.races_url}${season}/${round}/results.json`).pipe(
+      this.http.get<any>(`${this.races_url}/${season}/${round}/results.json`).pipe(
         map( response => {
           let resultsArr: IResult[];
           resultsArr = response.MRData.RaceTable.Races[0].Results.map( (responseResult:any) => {
@@ -59,7 +79,7 @@ export class RacesService {
   raceList$ = this.raceSeasonSelected$.pipe(
     switchMap( season => 
       season.length ? 
-        this.http.get<any>(`${this.races_url}${season}.json`).pipe(
+        this.http.get<any>(`${this.races_url}/${season}.json`).pipe(
           map( response => {
             let racesArr: IRace[];
             racesArr = response.MRData.RaceTable.Races.map( ( responseRace: any ) => {

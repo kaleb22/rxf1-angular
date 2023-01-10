@@ -1,15 +1,13 @@
 <div style="padding-top: 50px;" *ngIf="resultsPerRace$ | async as results">
-  <p><strong>Race final results</strong></p>
-  <div class="wrapper-title">
-    <p>position</p>
-    <span>|</span>
-    <p>driver's name</p>
-    <span>|</span>
-    <p>constructor</p>
-  </div>
-  <div class="wrapper-results">
-    <div *ngFor="let result of results; let index">
-      <p>{{result.position}} | {{result.driverName}} | {{result.constructor}} </p>
-    </div>
-  </div>
+  <app-results 
+    [title]="'Race final Results'"
+    [results]="results"
+  ></app-results>
+</div>
+
+<div style="padding-top: 50px;" *ngIf="qualifyingPerRace$ | async as qualiResults">
+  <app-results
+    [title]="'Qualifying results'"
+    [results]="qualiResults"
+  ></app-results>
 </div>

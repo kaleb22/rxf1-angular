@@ -15,4 +15,8 @@ export class RaceDetailsComponent {
     tap(console.log)
   );
 
+  qualifyingPerRace$ = this.raceService.qualifyingList$.pipe(
+    tap(console.log)
+  )
+
 }
