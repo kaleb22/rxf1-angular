@@ -12,7 +12,7 @@
     </mat-form-field>
   </div>
 
-  <div *ngIf="driverList$ | async as drivers">
+  <div style="padding-bottom: 30px;" *ngIf="driverList$ | async as drivers">
     <table mat-table [dataSource]="dataSource">
       
       <!-- -->
@@ -34,7 +34,7 @@
       <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
       <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+    <mat-paginator [pageSizeOptions]="[10, 20, 30]"
                     showFirstLastButtons
                     aria-label="select page of drivers">
     </mat-paginator>
