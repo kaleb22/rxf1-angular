@@ -8,7 +8,23 @@
     <p>constructor</p>
   </div>
   <div class="wrapper-results">
-    <div *ngFor="let result of results; let index">
+    <div *ngFor="let result of results;">
+      <p>{{result.position}} | {{result.driverName}} | {{result.constructor}} </p>
+    </div>
+  </div>
+</div>
+
+<div style="padding-top: 50px;" *ngIf="qualifyingPerRace$ | async as qualiResults">
+  <p><strong>Qualifying results</strong></p>
+  <div class="wrapper-title">
+    <p>position</p>
+    <span>|</span>
+    <p>driver's name</p>
+    <span>|</span>
+    <p>constructor</p>
+  </div>
+  <div class="wrapper-results">
+    <div *ngFor="let result of qualiResults;">
       <p>{{result.position}} | {{result.driverName}} | {{result.constructor}} </p>
     </div>
   </div>
