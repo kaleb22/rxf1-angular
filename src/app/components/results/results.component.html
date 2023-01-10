@@ -1,13 +1,32 @@
 <p><strong>{{title}}</strong></p>
-<div class="wrapper-title">
+
+<div class="wrapper-title" *ngIf="results[0].points; else otherTitle">
+  <p>points</p>
+  <span>|</span>
   <p>position</p>
   <span>|</span>
   <p>driver's name</p>
   <span>|</span>
   <p>constructor</p>
 </div>
+
+<ng-template #otherTitle>
+  <div class="wrapper-title">
+    <p>position</p>
+    <span>|</span>
+    <p>driver's name</p>
+    <span>|</span>
+    <p>constructor</p>
+  </div>
+</ng-template>
+
 <div class="wrapper-results">
   <div *ngFor="let result of results;">
-    <p>{{result.position}} | {{result.driverName}} | {{result.constructor}} </p>
+    <div *ngIf="result.points; else other">
+      <p>{{ result.points }} | {{result.position}} | {{result.driverName}} | {{result.constructor}} </p>
+    </div>
+    <ng-template #other>
+      <p>{{result.position}} | {{result.driverName}} | {{result.constructor}} </p>
+    </ng-template>
   </div>
 </div>

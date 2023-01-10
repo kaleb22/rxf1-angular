@@ -35,6 +35,27 @@ export class RacesService {
     this.roundSelectedSubject.next(round);
   }
 
+  standingList$ = this.roundSelected$.pipe(
+    withLatestFrom(this.raceSeasonSelected$),
+    switchMap( ([round, season]) => 
+      this.http.get<any>(`${this.races_url}/${season}/${round}/driverStandings.json`).pipe(
+        map( response => {
+          let resultsArr: IResult[];
+          resultsArr = response.MRData.StandingsTable.StandingsLists[0].DriverStandings.map( (responseResult:any) => {
+            let result: IResult = {
+              position: responseResult.position,
+              driverName: `${responseResult.Driver.givenName} ${responseResult.Driver.familyName}`,
+              constructor: responseResult.Constructors[0].constructorId,
+              points: responseResult.points
+            }
+            return result;
+          });
+          return resultsArr;
+        })
+      )
+    )
+  )
+
   qualifyingList$ = this.roundSelected$.pipe(
     withLatestFrom(this.raceSeasonSelected$),
     switchMap( ([round, season]) => 

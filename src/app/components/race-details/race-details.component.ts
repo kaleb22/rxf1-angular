@@ -19,4 +19,8 @@ export class RaceDetailsComponent {
     tap(console.log)
   )
 
+  standingsPerRace$ = this.raceService.standingList$.pipe(
+    tap(console.log)
+  )
+
 }

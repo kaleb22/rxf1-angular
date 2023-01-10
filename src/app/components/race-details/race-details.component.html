@@ -11,3 +11,10 @@
     [results]="qualiResults"
   ></app-results>
 </div>
+
+<div style="padding-top: 50px;" *ngIf="standingsPerRace$ | async as standings">
+  <app-results
+    [title]="'Standings results'"
+    [results]="standings"
+  ></app-results>
+</div>
