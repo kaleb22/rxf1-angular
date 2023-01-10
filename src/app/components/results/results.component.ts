@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IResult } from 'src/app/model/iresult';
 
 @Component({
   selector: 'app-results',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./results.component.scss']
 })
 export class ResultsComponent {
+
+  @Input() title: string;
+  @Input() results: IResult[];
 
 }
