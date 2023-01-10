@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { IResult } from 'src/app/model/iresult';
 
 @Component({
@@ -6,9 +8,32 @@ import { IResult } from 'src/app/model/iresult';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent {
+export class ResultsComponent implements AfterViewInit  {
+
+  constructor(private cdRef: ChangeDetectorRef) { }
 
   @Input() title: string;
-  @Input() results: IResult[];
+  @Input() set setResults(results: IResult[]) {
+    this.results = results;
+    this.dataSource = new MatTableDataSource<IResult>(results);
+    this.dataSource.paginator = this.paginator;
 
+    if(results[0].points) {
+      this.showStandings = true;
+    } else {
+      this.showStandings = false;
+    }
+  };
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  columnsStanding = ['points', 'position', 'driver-name', 'constructor']
+  columnsToDisplay = ['position', 'driver-name', 'constructor'];
+  dataSource: MatTableDataSource<IResult>;
+  results: IResult[];
+  showStandings: boolean;
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+  }
 }

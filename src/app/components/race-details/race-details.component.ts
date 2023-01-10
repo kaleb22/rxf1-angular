@@ -12,10 +12,14 @@ export class RaceDetailsComponent {
   constructor(private raceService: RacesService) { }
 
   resultsPerRace$ = this.raceService.resultsList$.pipe(
-    tap(console.log)
+    tap( res => console.log('race finals =>', res))
   );
 
   qualifyingPerRace$ = this.raceService.qualifyingList$.pipe(
+    tap( res => console.log('quali finals =>', res))
+  )
+
+  standingsPerRace$ = this.raceService.standingList$.pipe(
     tap(console.log)
   )
 

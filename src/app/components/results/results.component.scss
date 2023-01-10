@@ -2,7 +2,9 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 430px;
+  width: 470px;
+  flex-direction: column;
+  height: 350px;
 }
 
 .wrapper-title {
