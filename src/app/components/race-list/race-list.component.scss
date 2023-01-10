@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  padding-top: 50px;
+  flex-direction: column;
+}
+
+.mat-table-width {
+  width: 340px;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: currentColor;
+  background-color: #6161d9;
+}
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}
+
+.highlight {
+  background-color: #6161d9;
+}
