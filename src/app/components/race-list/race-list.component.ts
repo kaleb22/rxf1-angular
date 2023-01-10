@@ -62,7 +62,6 @@ export class RaceListComponent {
   }
 
   onRaceSelected(round: string): void {
-    console.log('round selected -> ', round);
     this.races.forEach( race => {
       if(race.round === round) {
         race.isClicked = true;
@@ -71,5 +70,6 @@ export class RaceListComponent {
       }
     });
     this.updateMatTableData();
+    this.raceService.roundSelected(round);
   }
 }
