@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, iif, map, mergeMap, of, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
 import { IRace } from '../model/irace';
 import { IResult } from '../model/iresult';
+import { IStatus } from '../model/istatus';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,9 @@ export class RacesService {
   constructor(private http: HttpClient) { }
 
   private races_url = 'http://ergast.com/api/f1';
+  private STATUS_FINISHED = '1';
+  private STATUS_ACCIDENT = '3';
+  private STATUS_MORETHAN_ONE_LAP = '11';
   
   /*
     1 - get the list of races within a year ( http://ergast.com/api/f1/2018.json )
@@ -34,6 +38,23 @@ export class RacesService {
   roundSelected(round: string): void {
     this.roundSelectedSubject.next(round);
   }
+
+  status2021Season$ = this.raceSeasonSelected$.pipe(
+    switchMap( season => 
+      season === '2021' ? 
+        this.http.get<any>(`${this.races_url}/${season}/status.json`).pipe(
+          map( response => {
+            let statusArr: IStatus[];
+            statusArr = response.MRData.StatusTable.Status.filter( (responseStatus: IStatus) => {
+              return responseStatus.statusId === this.STATUS_FINISHED || 
+                responseStatus.statusId === this.STATUS_ACCIDENT ||
+                responseStatus.statusId === this.STATUS_MORETHAN_ONE_LAP;     
+            })
+            return statusArr;
+          })
+        ) 
+      : of(null)) 
+  )
 
   standingList$ = this.roundSelected$.pipe(
     withLatestFrom(this.raceSeasonSelected$),
