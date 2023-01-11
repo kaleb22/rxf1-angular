@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, Observable, of, Subject, switchMap, tap, throwError, withLatestFrom } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, Subject, switchMap, throwError, withLatestFrom } from 'rxjs';
 import { IRace } from '../model/irace';
 import { IResult } from '../model/iresult';
 import { IStatus } from '../model/istatus';
