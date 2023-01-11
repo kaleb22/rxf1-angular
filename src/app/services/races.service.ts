@@ -27,6 +27,8 @@ export class RacesService {
 
   seasonSelected(seasonSelected: string): void {
     this.raceSeasonSelectedSubject.next(seasonSelected);
+    // when the filter by season changes, clear the select round
+    this.roundSelected('');
   }
 
   roundSelected(round: string): void {
@@ -54,65 +56,67 @@ export class RacesService {
   standingList$ = this.roundSelected$.pipe(
     withLatestFrom(this.raceSeasonSelected$),
     switchMap( ([round, season]) => 
-      this.http.get<any>(`${this.races_url}/${season}/${round}/driverStandings.json`).pipe(
-        map( response => {
-          let resultsArr: IResult[];
-          resultsArr = response.MRData.StandingsTable.StandingsLists[0].DriverStandings.map( (responseResult:any) => {
-            let result: IResult = {
-              position: responseResult.position,
-              driverName: `${responseResult.Driver.givenName} ${responseResult.Driver.familyName}`,
-              constructor: responseResult.Constructors[0].constructorId,
-              points: responseResult.points
-            }
-            return result;
-          });
-          return resultsArr;
-        })
-      )
-    ),
+      round.length ? 
+        this.http.get<any>(`${this.races_url}/${season}/${round}/driverStandings.json`).pipe(
+          map( response => {
+            let resultsArr: IResult[];
+            resultsArr = response.MRData.StandingsTable.StandingsLists[0].DriverStandings.map( (responseResult:any) => {
+              let result: IResult = {
+                position: responseResult.position,
+                driverName: `${responseResult.Driver.givenName} ${responseResult.Driver.familyName}`,
+                constructor: responseResult.Constructors[0].constructorId,
+                points: responseResult.points
+              }
+              return result;
+            });
+            return resultsArr;
+          })
+        )
+    : of(null)),
     catchError(this.handleError)
   )
 
   qualifyingList$ = this.roundSelected$.pipe(
     withLatestFrom(this.raceSeasonSelected$),
     switchMap( ([round, season]) => 
-      this.http.get<any>(`${this.races_url}/${season}/${round}/qualifying.json`).pipe(
-        map( response => {
-          let resultsArr: IResult[];
-          resultsArr = response.MRData.RaceTable.Races[0].QualifyingResults.map( (responseResult:any) => {
-            let result: IResult = {
-              position: responseResult.position,
-              driverName: `${responseResult.Driver.givenName} ${responseResult.Driver.familyName}`,
-              constructor: responseResult.Constructor.constructorId
-            }
-            return result;
-          });
-          return resultsArr;
-        })
-      )
-    ),
+      round.length ?
+        this.http.get<any>(`${this.races_url}/${season}/${round}/qualifying.json`).pipe(
+          map( response => {
+            let resultsArr: IResult[];
+            resultsArr = response.MRData.RaceTable.Races[0].QualifyingResults.map( (responseResult:any) => {
+              let result: IResult = {
+                position: responseResult.position,
+                driverName: `${responseResult.Driver.givenName} ${responseResult.Driver.familyName}`,
+                constructor: responseResult.Constructor.constructorId
+              }
+              return result;
+            });
+            return resultsArr;
+          })
+        )
+    : of(null)),
     catchError(this.handleError)
   )
 
   resultsList$ = this.roundSelected$.pipe(
     withLatestFrom(this.raceSeasonSelected$),
-    tap(([round, season]) => console.log('round / season ', round + ' ' + season)),
     switchMap( ([round, season]) => 
-      this.http.get<any>(`${this.races_url}/${season}/${round}/results.json`).pipe(
-        map( response => {
-          let resultsArr: IResult[];
-          resultsArr = response.MRData.RaceTable.Races[0].Results.map( (responseResult:any) => {
-            let result: IResult = {
-              position: responseResult.position,
-              driverName: `${responseResult.Driver.givenName} ${responseResult.Driver.familyName}`,
-              constructor: responseResult.Constructor.constructorId
-            }
-            return result;
-          });
-          return resultsArr;
-        })
-      )
-    ),
+      round.length ?
+        this.http.get<any>(`${this.races_url}/${season}/${round}/results.json`).pipe(
+          map( response => {
+            let resultsArr: IResult[];
+            resultsArr = response.MRData.RaceTable.Races[0].Results.map( (responseResult:any) => {
+              let result: IResult = {
+                position: responseResult.position,
+                driverName: `${responseResult.Driver.givenName} ${responseResult.Driver.familyName}`,
+                constructor: responseResult.Constructor.constructorId
+              }
+              return result;
+            });
+            return resultsArr;
+          })
+        )
+    : of(null)),
     catchError(this.handleError)
   )
 
