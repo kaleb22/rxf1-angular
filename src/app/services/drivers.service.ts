@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, switchMap, map, tap, of, Observable, throwError, catchError, shareReplay } from 'rxjs';
+import { BehaviorSubject, switchMap, map, of, Observable, throwError, catchError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { IDriver } from '../model/idriver';
 

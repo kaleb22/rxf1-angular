@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DriversService } from 'src/app/services/drivers.service';
 import { IDriver } from 'src/app/model/idriver';
-import { map, tap } from 'rxjs';
+import { catchError, EMPTY, map, Subject, tap } from 'rxjs';
 
 @Component({
   selector: 'app-driver-list',
@@ -17,6 +17,9 @@ export class DriverListComponent {
     this.seasons = ['2018', '2019', '2020', '2021', '2022'];
   }
 
+  private errorMessageSubject = new Subject<String>();
+  errorMessage$ = this.errorMessageSubject.asObservable();
+
   seasons: string[];
   seasonSelected: string;
   drivers: IDriver[];
@@ -25,9 +28,10 @@ export class DriverListComponent {
 
   driverList$ = this.driverService.driverList$.pipe(
     map( drivers =>  this.drivers = drivers as IDriver[] ),
-    tap( drivers =>  { 
-      console.log(drivers)
-      this.updateMatTableData();
+    tap( () => this.updateMatTableData() ),
+    catchError( err => {
+      this.errorMessageSubject.next(err);
+      return EMPTY;
     })
   );
 
@@ -62,5 +66,4 @@ export class DriverListComponent {
       this.driverService.seasonSelected(seasonSelected);
     }
   }
-
 }

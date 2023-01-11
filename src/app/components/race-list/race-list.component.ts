@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { map, tap } from 'rxjs';
+import { catchError, EMPTY, map, Subject, tap } from 'rxjs';
 import { IRace } from 'src/app/model/irace';
 import { RacesService } from 'src/app/services/races.service';
 
@@ -17,7 +17,10 @@ export class RaceListComponent {
     private raceService: RacesService,
     private cdRef: ChangeDetectorRef) {
     this.seasons = ['2018', '2019', '2020', '2021', '2022'];
-   }
+  }
+
+  private errorMessageSubject = new Subject<string>();
+  errorMessage$ = this.errorMessageSubject.asObservable();
   
   seasons: string[];
   columnsToDisplay = ['race-name'];
@@ -25,12 +28,19 @@ export class RaceListComponent {
   dataSource: MatTableDataSource<IRace>;
 
   status2021Season$ = this.raceService.status2021Season$.pipe(
-    tap(console.log)
-  )
+    catchError( err => {
+      this.errorMessageSubject.next(err);
+      return EMPTY;
+    })
+  );
   
   raceList$ = this.raceService.raceList$.pipe(
     map(res => this.races = res as IRace[]),
-    tap( () => this.updateMatTableData() )
+    tap( () => this.updateMatTableData() ),
+    catchError( err => {
+      this.errorMessageSubject.next(err);
+      return EMPTY;
+    })
   )
 
   private paginator: MatPaginator;

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { IResult } from 'src/app/model/iresult';
@@ -10,7 +10,7 @@ import { IResult } from 'src/app/model/iresult';
 })
 export class ResultsComponent implements AfterViewInit  {
 
-  constructor(private cdRef: ChangeDetectorRef) { }
+  constructor() { }
 
   @Input() title: string;
   @Input() set setResults(results: IResult[]) {

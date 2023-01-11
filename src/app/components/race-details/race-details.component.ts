@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { tap } from 'rxjs';
+import { catchError, EMPTY, Subject } from 'rxjs';
 import { RacesService } from 'src/app/services/races.service';
 
 @Component({
@@ -11,16 +11,28 @@ export class RaceDetailsComponent {
 
   constructor(private raceService: RacesService) { }
 
+  private errorMessageSubject = new Subject<string>();
+  errorMessage$ = this.errorMessageSubject.asObservable();
+
   resultsPerRace$ = this.raceService.resultsList$.pipe(
-    tap( res => console.log('race finals =>', res))
+    catchError( err => {
+      this.errorMessageSubject.next(err);
+      return EMPTY;
+    })
   );
 
   qualifyingPerRace$ = this.raceService.qualifyingList$.pipe(
-    tap( res => console.log('quali finals =>', res))
+    catchError( err => {
+      this.errorMessageSubject.next(err);
+      return EMPTY;
+    })
   )
 
   standingsPerRace$ = this.raceService.standingList$.pipe(
-    tap(console.log)
+    catchError( err => {
+      this.errorMessageSubject.next(err);
+      return EMPTY;
+    })
   )
 
 }
