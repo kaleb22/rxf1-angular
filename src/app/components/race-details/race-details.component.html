@@ -18,3 +18,7 @@
     [setResults]="standings"
   ></app-results>
 </div>
+
+<div *ngIf="errorMessage$ | async as errorMessage">
+  {{ errorMessage }}
+</div>

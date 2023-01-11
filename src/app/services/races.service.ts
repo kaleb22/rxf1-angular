@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, iif, map, mergeMap, of, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, Subject, switchMap, tap, throwError, withLatestFrom } from 'rxjs';
 import { IRace } from '../model/irace';
 import { IResult } from '../model/iresult';
 import { IStatus } from '../model/istatus';
@@ -17,12 +17,6 @@ export class RacesService {
   private STATUS_ACCIDENT = '3';
   private STATUS_MORETHAN_ONE_LAP = '11';
   
-  /*
-    1 - get the list of races within a year ( http://ergast.com/api/f1/2018.json )
-    2 - create the obj to hold all this info
-    3 - when user select a race, display the information about the final results (http://ergast.com/api/f1/2018/{{round}}/results.json )
-  */
-
   // action stream
   private raceSeasonSelectedSubject = new BehaviorSubject<string>('');
   raceSeasonSelected$ = this.raceSeasonSelectedSubject.asObservable();
@@ -53,7 +47,8 @@ export class RacesService {
             return statusArr;
           })
         ) 
-      : of(null)) 
+      : of(null)),
+    catchError(this.handleError)
   )
 
   standingList$ = this.roundSelected$.pipe(
@@ -74,7 +69,8 @@ export class RacesService {
           return resultsArr;
         })
       )
-    )
+    ),
+    catchError(this.handleError)
   )
 
   qualifyingList$ = this.roundSelected$.pipe(
@@ -94,7 +90,8 @@ export class RacesService {
           return resultsArr;
         })
       )
-    )
+    ),
+    catchError(this.handleError)
   )
 
   resultsList$ = this.roundSelected$.pipe(
@@ -115,7 +112,8 @@ export class RacesService {
           return resultsArr;
         })
       )
-    )
+    ),
+    catchError(this.handleError)
   )
 
   raceList$ = this.raceSeasonSelected$.pipe(
@@ -135,6 +133,19 @@ export class RacesService {
             return racesArr;
           })
         ) 
-      : of(null))
+      : of(null)),
+    catchError(this.handleError)
   )
+
+  private handleError(err: HttpErrorResponse): Observable<never> {
+    let errorMessage = '';
+    if (err.error instanceof ErrorEvent) {
+      errorMessage = `An error occurred: ${err.error.message}`;
+    } else {
+      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message
+        }`;
+    }
+    console.error(errorMessage);
+    return throwError(() => new Error(errorMessage));
+  }
 }
