@@ -32,4 +32,11 @@
       </mat-paginator>
     </div>
   </div>
+
+  <div style="padding-top: 30px;" *ngIf="status2021Season$ | async as statusList">
+    <p><strong>Bonus feature - season 2021</strong></p>
+    <div *ngFor="let status of statusList">
+      <p>How many cars had {{status.status}}: {{status.count}}</p>
+    </div>
+  </div>
 </div>

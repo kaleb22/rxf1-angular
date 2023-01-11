@@ -15,8 +15,7 @@ export class RaceListComponent {
 
   constructor(
     private raceService: RacesService,
-    private cdRef: ChangeDetectorRef
-  ) {
+    private cdRef: ChangeDetectorRef) {
     this.seasons = ['2018', '2019', '2020', '2021', '2022'];
    }
   
@@ -24,6 +23,11 @@ export class RaceListComponent {
   columnsToDisplay = ['race-name'];
   races: IRace[];
   dataSource: MatTableDataSource<IRace>;
+
+  status2021Season$ = this.raceService.status2021Season$.pipe(
+    tap(console.log)
+  )
+  
   raceList$ = this.raceService.raceList$.pipe(
     map(res => this.races = res as IRace[]),
     tap( () => this.updateMatTableData() )
