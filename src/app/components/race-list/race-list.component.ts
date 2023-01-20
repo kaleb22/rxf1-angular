@@ -86,4 +86,6 @@ export class RaceListComponent {
     this.updateMatTableData();
     this.raceService.roundSelected(round);
   }
+
+  spinnerStatus$ = this.raceService.spinnerStatus$;
 }

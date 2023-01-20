@@ -1,16 +1,20 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, Observable, of, Subject, switchMap, throwError, withLatestFrom } from 'rxjs';
+import { catchError, map, Observable, of, Subject, switchMap, throwError, withLatestFrom, combineLatest, tap, forkJoin, take, takeUntil, takeWhile, filter } from 'rxjs';
 import { IRace } from '../model/irace';
 import { IResult } from '../model/iresult';
 import { IStatus } from '../model/istatus';
+import { SpinnerService } from './spinner.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RacesService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private spinnerService: SpinnerService
+  ) { }
 
   private races_url = 'http://ergast.com/api/f1';
   private STATUS_FINISHED = '1';
@@ -26,12 +30,14 @@ export class RacesService {
   roundSelected$ = this.roundSelectedSubject.asObservable();
 
   selectedSeasonChanged(seasonSelected: string): void {
+    this.spinnerService.showSpinner(true);
     this.raceSeasonSelectedSubject.next(seasonSelected);
     // when the filter by season changes, clear the select round
     this.roundSelected('');
   }
 
   roundSelected(round: string): void {
+    this.spinnerService.showSpinner(true);
     this.roundSelectedSubject.next(round);
   }
 
@@ -135,10 +141,16 @@ export class RacesService {
               return race;
             });
             return racesArr;
-          })
+          }),
+          tap( () => this.spinnerService.showSpinner(false))
         ) 
       : of(null)),
     catchError(this.handleError)
+  )
+
+  spinnerStatus$ = combineLatest([this.resultsList$, this.qualifyingList$, this.standingList$]).pipe(
+    filter(([first, second, third]) => first != null && second != null && third != null),
+    tap(() => this.spinnerService.showSpinner(false)),
   )
 
   private handleError(err: HttpErrorResponse): Observable<never> {

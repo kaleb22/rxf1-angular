@@ -44,3 +44,5 @@
 <div *ngIf="errorMessage$ | async as errorMessage">
   <p class="error">{{ errorMessage }}</p>
 </div>
+
+<div *ngIf="spinnerStatus$ | async"></div>

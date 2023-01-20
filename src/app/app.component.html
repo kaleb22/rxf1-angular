@@ -13,7 +13,7 @@
   <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 </div>
 
-<div class="wrapper-spinner">
+<div *ngIf="spinnerAction$ | async" class="wrapper-spinner">
   <div class="wrapper-spinner__center">
     <div class="wrapper-spinner__center--loading">
       <mat-spinner></mat-spinner>
