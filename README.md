@@ -1,4 +1,4 @@
-# Rxf1Angular
+# RxF1 - Angular
 
 A simple project to study the concepts of reactive components using RxJS and the F1 API.
 
