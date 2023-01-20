@@ -1,21 +1,21 @@
 <div style="padding-top: 50px;" *ngIf="resultsPerRace$ | async as results">
   <app-results 
     [title]="'Race final Results'"
-    [setResults]="results"
+    [results]="results"
   ></app-results>
 </div>
 
-<div style="padding-top: 50px;" *ngIf="qualifyingPerRace$ | async as qualiResults">
+<div style="padding-top: 10px;" *ngIf="qualifyingPerRace$ | async as qualiResults">
   <app-results
     [title]="'Qualifying results'"
-    [setResults]="qualiResults"
+    [results]="qualiResults"
   ></app-results>
 </div>
 
-<div style="padding-top: 50px;" *ngIf="standingsPerRace$ | async as standings">
+<div style="padding-top: 10px;" *ngIf="standingsPerRace$ | async as standings">
   <app-results
     [title]="'Standing results'"
-    [setResults]="standings"
+    [results]="standings"
   ></app-results>
 </div>
 
