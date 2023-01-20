@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, switchMap, map, of, Observable, throwError, catchError } from 'rxjs';
+import { BehaviorSubject, switchMap, map, of, Observable, throwError, catchError, tap } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { IDriver } from '../model/idriver';
+import { SpinnerService } from './spinner.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DriversService {
   
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private spinnerService: SpinnerService
+  ) { }
   
   private url = 'http://ergast.com/api/f1/';
 
@@ -16,6 +20,7 @@ export class DriversService {
   seasonSelected$ = this.seasonSelectedSubject.asObservable();
 
   seasonSelected(seasonSelected: string): void {
+    this.spinnerService.showSpinner(true);
     this.seasonSelectedSubject.next(seasonSelected);
   }
 
@@ -24,6 +29,7 @@ export class DriversService {
       season.length ?
           this.http.get<any>(`${this.url}${season}/drivers.json`).pipe(
             map(data => data.MRData.DriverTable.Drivers as IDriver[]),
+            tap(() => this.spinnerService.showSpinner(false)),
             catchError(this.handleError)
         ) : of(null)),
   );
