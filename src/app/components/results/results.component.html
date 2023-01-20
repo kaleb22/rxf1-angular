@@ -1,59 +1,30 @@
 <p><strong>{{title}}</strong></p>
 
-<div *ngIf="showStandings; else defaultResults">
-  <table mat-table [dataSource]="dataSource">
-
-    <ng-container matColumnDef="points">
-      <th mat-header-cell *matHeaderCellDef> Points </th>
-      <td mat-cell *matCellDef="let driver"> {{ driver.points }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> Position </th>
-      <td mat-cell *matCellDef="let driver"> {{ driver.position }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="driver-name">
-      <th mat-header-cell *matHeaderCellDef> Driver's name </th>
-      <td mat-cell *matCellDef="let driver"> {{ driver.driverName }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="constructor">
-      <th mat-header-cell *matHeaderCellDef> Constructor </th>
-      <td mat-cell *matCellDef="let driver"> {{ driver.constructor }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="columnsStanding"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnsStanding"></tr>
-  </table>
-  <mat-paginator [pageSizeOptions]="[10, 20]"
-                 showFirstLastButtons
-                 aria-label="Select page of results">
-  </mat-paginator>
+<div class="wrapper-title" *ngIf="results[0].points; else noPointsTitle">
+  <p>points</p>
+  <span>|</span>
+  <p>position</p>
+  <span>|</span>
+  <p>driver's name</p>
+  <span>|</span>
+  <p>constructor</p>
 </div>
 
-<ng-template #defaultResults>
-  <table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> Position </th>
-      <td mat-cell *matCellDef="let driver"> {{ driver.position }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="driver-name">
-      <th mat-header-cell *matHeaderCellDef> Driver's name </th>
-      <td mat-cell *matCellDef="let driver"> {{ driver.driverName }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="constructor">
-      <th mat-header-cell *matHeaderCellDef> Constructor </th>
-      <td mat-cell *matCellDef="let driver"> {{ driver.constructor }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
-  </table>
-  <mat-paginator [pageSizeOptions]="[10, 20]"
-                showFirstLastButtons
-                aria-label="Select page of results">
-  </mat-paginator>
+<ng-template #noPointsTitle>
+  <div class="wrapper-title">
+    <p>position</p>
+    <span>|</span>
+    <p>driver's name</p>
+    <span>|</span>
+    <p>constructor</p>
+  </div>
 </ng-template>
+
+<div class="wrapper-results">
+  <div *ngFor="let result of results">
+    <p *ngIf="result.points; else noPoints"><strong>{{ result.points }}</strong> | {{ result.position }} | {{ result.driverName }} | {{ result.constructor }} </p>
+    <ng-template #noPoints>
+      <p> <strong>{{ result.position }}</strong> | {{ result.driverName }} | {{ result.constructor }} </p>
+    </ng-template>
+  </div>
+</div>

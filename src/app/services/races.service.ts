@@ -18,14 +18,14 @@ export class RacesService {
   private STATUS_MORETHAN_ONE_LAP = '11';
   
   // action stream
-  private raceSeasonSelectedSubject = new BehaviorSubject<string>('');
-  raceSeasonSelected$ = this.raceSeasonSelectedSubject.asObservable();
+  private raceSeasonSelectedSubject = new Subject<string>();
+  raceSeasonSelectedAction$ = this.raceSeasonSelectedSubject.asObservable();
 
   // action stream
   private roundSelectedSubject = new Subject<string>;
   roundSelected$ = this.roundSelectedSubject.asObservable();
 
-  seasonSelected(seasonSelected: string): void {
+  selectedSeasonChanged(seasonSelected: string): void {
     this.raceSeasonSelectedSubject.next(seasonSelected);
     // when the filter by season changes, clear the select round
     this.roundSelected('');
@@ -35,7 +35,7 @@ export class RacesService {
     this.roundSelectedSubject.next(round);
   }
 
-  status2021Season$ = this.raceSeasonSelected$.pipe(
+  status2021Season$ = this.raceSeasonSelectedAction$.pipe(
     switchMap( season => 
       season === '2021' ? 
         this.http.get<any>(`${this.races_url}/${season}/status.json`).pipe(
@@ -54,7 +54,7 @@ export class RacesService {
   )
 
   standingList$ = this.roundSelected$.pipe(
-    withLatestFrom(this.raceSeasonSelected$),
+    withLatestFrom(this.raceSeasonSelectedAction$),
     switchMap( ([round, season]) => 
       round.length ? 
         this.http.get<any>(`${this.races_url}/${season}/${round}/driverStandings.json`).pipe(
@@ -77,7 +77,7 @@ export class RacesService {
   )
 
   qualifyingList$ = this.roundSelected$.pipe(
-    withLatestFrom(this.raceSeasonSelected$),
+    withLatestFrom(this.raceSeasonSelectedAction$),
     switchMap( ([round, season]) => 
       round.length ?
         this.http.get<any>(`${this.races_url}/${season}/${round}/qualifying.json`).pipe(
@@ -99,7 +99,7 @@ export class RacesService {
   )
 
   resultsList$ = this.roundSelected$.pipe(
-    withLatestFrom(this.raceSeasonSelected$),
+    withLatestFrom(this.raceSeasonSelectedAction$),
     switchMap( ([round, season]) => 
       round.length ?
         this.http.get<any>(`${this.races_url}/${season}/${round}/results.json`).pipe(
@@ -120,7 +120,7 @@ export class RacesService {
     catchError(this.handleError)
   )
 
-  raceList$ = this.raceSeasonSelected$.pipe(
+  raceList$ = this.raceSeasonSelectedAction$.pipe(
     switchMap( season => 
       season.length ? 
         this.http.get<any>(`${this.races_url}/${season}.json`).pipe(
