@@ -16,7 +16,7 @@ export class RacesService {
     private spinnerService: SpinnerService
   ) { }
 
-  private races_url = 'http://ergast.com/api/f1';
+  private races_url = 'https://ergast.com/api/f1';
   private STATUS_FINISHED = '1';
   private STATUS_ACCIDENT = '3';
   private STATUS_MORETHAN_ONE_LAP = '11';

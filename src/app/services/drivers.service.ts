@@ -14,7 +14,7 @@ export class DriversService {
     private spinnerService: SpinnerService
   ) { }
   
-  private url = 'http://ergast.com/api/f1/';
+  private url = 'https://ergast.com/api/f1/';
 
   private seasonSelectedSubject = new BehaviorSubject<string>('');
   seasonSelected$ = this.seasonSelectedSubject.asObservable();
