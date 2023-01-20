@@ -64,7 +64,7 @@ export class RaceListComponent {
   */
   onSeasonSelected($event: MatOptionSelectionChange, seasonSelected: string): void {
     if($event.isUserInput) {
-      this.raceService.seasonSelected(seasonSelected);
+      this.raceService.selectedSeasonChanged(seasonSelected);
     }
   }
 
