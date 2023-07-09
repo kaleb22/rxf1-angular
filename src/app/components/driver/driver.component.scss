@@ -1,0 +1,44 @@
+$ferrari-color: #ff0000;
+
+.container {
+  display: flex;
+}
+
+.drivers-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 77.5rem;
+  align-items: center;
+  justify-content: center ;
+}
+
+.driver {
+  display: flex;
+  align-items: center;
+  margin: 0 1rem 2rem 5rem;
+  width: 30rem;
+  height: 3rem;
+  background-color: white;
+
+  &__position {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: inherit;
+  }
+
+  &__constructor {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    img {
+      width: 14%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

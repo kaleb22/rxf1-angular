@@ -11,6 +11,19 @@
   }
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+.body::-webkit-scrollbar {
+  display: none;
+}
+
+.body {
+  background-color: black;
+  height: calc(100vh - 100px);
+  overflow: auto;
+  scrollbar-width: none;  /* firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
 .wrapper {
   display: flex;
   justify-content: center;

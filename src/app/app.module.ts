@@ -9,7 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { NgHttpCachingModule, NgHttpCachingConfig } from 'ng-http-caching';
+import { NgHttpCachingModule, NgHttpCachingConfig, NgHttpCachingStrategy } from 'ng-http-caching';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
@@ -18,11 +18,13 @@ import { RaceListComponent } from './components/race-list/race-list.component';
 import { RaceListWrapperComponent } from './components/race-list-wrapper/race-list-wrapper.component';
 import { RaceDetailsComponent } from './components/race-details/race-details.component';
 import { ResultsComponent } from './components/results/results.component';
+import { DriverComponent } from './components/driver/driver.component';
 
 
 const ngHttpCachingConfig: NgHttpCachingConfig = {
   lifetime: 1000 * 60 * 10, // cache expire after 10 min,
-  allowedMethod: ['GET', 'HEAD']
+  allowedMethod: ['GET', 'HEAD'],
+  cacheStrategy: NgHttpCachingStrategy.ALLOW_ALL
 };
 
 @NgModule({
@@ -33,6 +35,7 @@ const ngHttpCachingConfig: NgHttpCachingConfig = {
     RaceListWrapperComponent,
     RaceDetailsComponent,
     ResultsComponent,
+    DriverComponent,
   ],
   imports: [
     BrowserModule,
