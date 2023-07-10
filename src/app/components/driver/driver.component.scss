@@ -1,7 +1,41 @@
-$ferrari-color: #ff0000;
-
 .container {
   display: flex;
+  width: 100vw;
+  justify-content: space-around;
+
+  &__title {
+    writing-mode: vertical-lr;
+    text-orientation: revert;
+    transform: rotate(180deg);
+    margin-left: 5rem;
+    height: 36rem;
+
+    &--style {
+      color: white;
+      font-family: 'Bebas Neue';
+    }
+
+    &--size {
+      font-size: 9rem;
+    }
+  }
+
+  &__season {
+    display: flex;
+    height: 8.5rem;
+    align-items: center;
+    flex-direction: column;
+    margin-right: 1rem;
+
+    &--layout {
+      height: 5rem;
+      margin-top: 3rem
+    }
+
+    &--size {
+      font-size: 2rem;
+    }
+  }
 }
 
 .drivers-container {
@@ -16,9 +50,14 @@ $ferrari-color: #ff0000;
   display: flex;
   align-items: center;
   margin: 0 1rem 2rem 5rem;
-  width: 30rem;
+  width: 27rem;
   height: 3rem;
   background-color: white;
+
+  &__name {
+    font-family: 'Bebas Neue';
+    font-size: 2rem;
+  }
 
   &__position {
     display: flex;

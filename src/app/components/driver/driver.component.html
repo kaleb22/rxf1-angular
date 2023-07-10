@@ -1,15 +1,20 @@
 <div class="container">
-  <div style="writing-mode: vertical-lr; text-orientation: revert; transform: rotate(180deg); margin-left: 4rem; height: 36rem;">
-     <p style="color: white; writing-mode: vertical-lr; text-orientation: mixed; font-family: 'Bebas Neue'; font-size: 9rem;"> THE DRIVERS </p></div>
+  <div class="container__title">
+     <p class="container__title--style container__title--size"> THE DRIVERS </p>
+  </div>
   <div class="drivers-container">
     <ng-container *ngIf="driversList$ | async as drivers">
       <div *ngFor="let driver of drivers" class="driver">
-        <div class="driver__position"> <span> {{ driver.code }} </span> </div>
+        <div class="driver__position"> <span class="driver__name"> {{ driver.code }} </span> </div>
         <div class="driver__constructor" [ngStyle]="{ 'background': driver.staticPath.color }">
-          <div> {{ driver.familyName | uppercase }} </div>
+          <div class="driver__name"> {{ driver.familyName | uppercase }} </div>
           <img [src]="driver.staticPath.imgPath" width="100" height="100"/>
         </div>
       </div>
     </ng-container>
+  </div>
+  <div *ngIf="seasonSelected$ | async as season" class="container__season">
+    <span class="container__title--style container__title--size container__season--layout">{{ season }}</span>
+    <span class="container__title--style container__season--size">season</span>
   </div>
 </div>

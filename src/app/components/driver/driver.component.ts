@@ -15,4 +15,6 @@ export class DriverComponent {
     tap( (drivers) => console.log(drivers))
   );
 
+  seasonSelected$ = this.driversService.seasonSelected$;
+
 }
