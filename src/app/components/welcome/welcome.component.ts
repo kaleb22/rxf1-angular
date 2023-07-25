@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent {
+
+  constructor(private router: Router) {
+
+  }
+
+  goToDriversPage(event: Event) {
+    event.preventDefault();
+    this.router.navigateByUrl('/drivers');
+  }
 
 }

@@ -6,10 +6,11 @@ import { RaceListComponent } from './components/race-list/race-list.component';
 import { RaceListWrapperComponent } from './components/race-list-wrapper/race-list-wrapper.component';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { DriverComponent } from './components/driver/driver.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent},
-  { path: 'drivers', component: DriverListComponent },
+  { path: 'drivers', component: DriverComponent },
   { path: 'races', component: RaceListWrapperComponent }
 ]
 
