@@ -4,9 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { DriverListComponent } from './components/driver-list/driver-list.component';
 import { RaceListComponent } from './components/race-list/race-list.component';
 import { RaceListWrapperComponent } from './components/race-list-wrapper/race-list-wrapper.component';
+import { AppComponent } from './app.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/drivers', pathMatch: 'full' },
+  { path: '', component: WelcomeComponent},
   { path: 'drivers', component: DriverListComponent },
   { path: 'races', component: RaceListWrapperComponent }
 ]

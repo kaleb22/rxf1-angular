@@ -19,6 +19,7 @@ import { RaceListWrapperComponent } from './components/race-list-wrapper/race-li
 import { RaceDetailsComponent } from './components/race-details/race-details.component';
 import { ResultsComponent } from './components/results/results.component';
 import { DriverComponent } from './components/driver/driver.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 
 const ngHttpCachingConfig: NgHttpCachingConfig = {
@@ -36,6 +37,7 @@ const ngHttpCachingConfig: NgHttpCachingConfig = {
     RaceDetailsComponent,
     ResultsComponent,
     DriverComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,
