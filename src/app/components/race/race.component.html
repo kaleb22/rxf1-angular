@@ -1,0 +1,22 @@
+
+<mat-form-field appearance="fill">
+  <mat-label>Current Season</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let season of seasons" [value]="season"
+    (onSelectionChange)="onSeasonSelected($event, season)">
+      {{ season }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div class="race__list__container" *ngIf="raceList$ | async as races">
+
+  <div class="race__container" *ngFor="let race of races">
+    <img src="/assets/img/tracks/Abu_Dhabi.png" width="120" height="120">
+    <p> {{ race.raceName }}</p>
+    <p> {{ race.date }} </p>
+    <button>details</button>
+  </div>
+
+</div>
+

@@ -25,6 +25,7 @@ import { ResultsComponent } from './components/results/results.component';
 import { DriverComponent } from './components/driver/driver.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { HeaderComponent } from './components/header/header.component';
+import { RaceComponent } from './components/race/race.component';
 
 
 const ngHttpCachingConfig: NgHttpCachingConfig = {
@@ -44,6 +45,7 @@ const ngHttpCachingConfig: NgHttpCachingConfig = {
     DriverComponent,
     WelcomeComponent,
     HeaderComponent,
+    RaceComponent,
   ],
   imports: [
     BrowserModule,

@@ -20,7 +20,7 @@ export class RacesService {
   private STATUS_FINISHED = '1';
   private STATUS_ACCIDENT = '3';
   private STATUS_MORETHAN_ONE_LAP = '11';
-  
+
   // action stream
   private raceSeasonSelectedSubject = new Subject<string>();
   raceSeasonSelectedAction$ = this.raceSeasonSelectedSubject.asObservable();
@@ -42,27 +42,27 @@ export class RacesService {
   }
 
   status2021Season$ = this.raceSeasonSelectedAction$.pipe(
-    switchMap( season => 
-      season === '2021' ? 
+    switchMap( season =>
+      season === '2021' ?
         this.http.get<any>(`${this.races_url}/${season}/status.json`).pipe(
           map( response => {
             let statusArr: IStatus[];
             statusArr = response.MRData.StatusTable.Status.filter( (responseStatus: IStatus) => {
-              return responseStatus.statusId === this.STATUS_FINISHED || 
+              return responseStatus.statusId === this.STATUS_FINISHED ||
                 responseStatus.statusId === this.STATUS_ACCIDENT ||
-                responseStatus.statusId === this.STATUS_MORETHAN_ONE_LAP;     
+                responseStatus.statusId === this.STATUS_MORETHAN_ONE_LAP;
             })
             return statusArr;
           })
-        ) 
+        )
       : of(null)),
     catchError(this.handleError)
   )
 
   standingList$ = this.roundSelected$.pipe(
     withLatestFrom(this.raceSeasonSelectedAction$),
-    switchMap( ([round, season]) => 
-      round.length ? 
+    switchMap( ([round, season]) =>
+      round.length ?
         this.http.get<any>(`${this.races_url}/${season}/${round}/driverStandings.json`).pipe(
           map( response => {
             let resultsArr: IResult[];
@@ -84,7 +84,7 @@ export class RacesService {
 
   qualifyingList$ = this.roundSelected$.pipe(
     withLatestFrom(this.raceSeasonSelectedAction$),
-    switchMap( ([round, season]) => 
+    switchMap( ([round, season]) =>
       round.length ?
         this.http.get<any>(`${this.races_url}/${season}/${round}/qualifying.json`).pipe(
           map( response => {
@@ -106,7 +106,7 @@ export class RacesService {
 
   resultsList$ = this.roundSelected$.pipe(
     withLatestFrom(this.raceSeasonSelectedAction$),
-    switchMap( ([round, season]) => 
+    switchMap( ([round, season]) =>
       round.length ?
         this.http.get<any>(`${this.races_url}/${season}/${round}/results.json`).pipe(
           map( response => {
@@ -127,8 +127,8 @@ export class RacesService {
   )
 
   raceList$ = this.raceSeasonSelectedAction$.pipe(
-    switchMap( season => 
-      season.length ? 
+    switchMap( season =>
+      season.length ?
         this.http.get<any>(`${this.races_url}/${season}.json`).pipe(
           map( response => {
             let racesArr: IRace[];
@@ -136,14 +136,15 @@ export class RacesService {
               let race: IRace = {
                 round: responseRace.round,
                 raceName: responseRace.raceName,
-                isClicked: false
+                isClicked: false,
+                date: responseRace.date
               };
               return race;
             });
             return racesArr;
           }),
           tap( () => this.spinnerService.showSpinner(false))
-        ) 
+        )
       : of(null)),
     catchError(this.handleError)
   )
