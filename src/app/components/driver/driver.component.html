@@ -1,3 +1,15 @@
+<div class="select__container">
+  <mat-form-field appearance="fill">
+    <mat-label>Current Season</mat-label>
+    <mat-select [(ngModel)]="defaultSeason">
+      <mat-option *ngFor="let season of seasons" [value]="season"
+      (onSelectionChange)="onSeasonSelected($event, season)">
+        {{ season }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
 <div class="container">
   <div class="container__title">
      <p class="container__title--style container__title--size"> THE DRIVERS </p>

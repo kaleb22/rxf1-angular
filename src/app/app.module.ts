@@ -14,6 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { DriverListComponent } from './components/driver-list/driver-list.component';
@@ -59,7 +60,8 @@ const ngHttpCachingConfig: NgHttpCachingConfig = {
     MatProgressSpinnerModule,
     MatIconModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
