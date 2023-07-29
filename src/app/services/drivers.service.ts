@@ -15,19 +15,19 @@ export class DriversService {
   ) { }
 
   ConstructorsArray = [
-    { constructorId: 'ferrari', staticInfo: { color: '#ff0000', imgPath: '/assets/img/ferrari.png' } },
-    { constructorId: 'alfa', staticInfo: { color: '#a50e2d', imgPath: '/assets/img/alfa.png' } },
-    { constructorId: 'haas', staticInfo: { color: '#f7f7f7', imgPath: '/assets/img/haas.png' } },
-    { constructorId: 'mclaren', staticInfo: { color: '#fe8000', imgPath: '/assets/img/mclaren.png' } },
-    { constructorId: 'mercedes', staticInfo: { color: '#00a19c', imgPath: '/assets/img/mercedes.png' } },
-    { constructorId: 'racing_point', staticInfo: { color: '#ff90c3', imgPath: '/assets/img/racing_point.png' } },
-    { constructorId: 'red_bull', staticInfo: { color: '#16185f', imgPath: '/assets/img/red_bull.png' }  },
-    { constructorId: 'renault', staticInfo: { color: '#fef200', imgPath: '/assets/img/renault.png' }  },
-    { constructorId: 'toro_rosso', staticInfo: { color: '#2d64d9', imgPath: '/assets/img/toro_rosso.png' }  },
-    { constructorId: 'williams', staticInfo: { color: '#041e42', imgPath: '/assets/img/williams.png' }  },
-    { constructorId: 'alphatauri', staticInfo: { color: '#022947', imgPath: '/assets/img/alpha_tauri.png' } },
-    { constructorId: 'alpine', staticInfo: { color: '#022947', imgPath: '/assets/img/alpine.png' } },
-    { constructorId: 'aston_martin',staticInfo: { color: '#005850', imgPath: '/assets/img/aston_martin.png' }  }
+    { constructorId: 'ferrari', staticInfo: { color: '#ff0000', imgPath: '/assets/img/logos/ferrari.png' } },
+    { constructorId: 'alfa', staticInfo: { color: '#a50e2d', imgPath: '/assets/img/logos/alfa.png' } },
+    { constructorId: 'haas', staticInfo: { color: '#f7f7f7', imgPath: '/assets/img/logos/haas.png' } },
+    { constructorId: 'mclaren', staticInfo: { color: '#fe8000', imgPath: '/assets/img/logos/mclaren.png' } },
+    { constructorId: 'mercedes', staticInfo: { color: '#00a19c', imgPath: '/assets/img/logos/mercedes.png' } },
+    { constructorId: 'racing_point', staticInfo: { color: '#ff90c3', imgPath: '/assets/img/logos/racing_point.png' } },
+    { constructorId: 'red_bull', staticInfo: { color: '#16185f', imgPath: '/assets/img/logos/red_bull.png' }  },
+    { constructorId: 'renault', staticInfo: { color: '#fef200', imgPath: '/assets/img/logos/renault.png' }  },
+    { constructorId: 'toro_rosso', staticInfo: { color: '#2d64d9', imgPath: '/assets/img/logos/toro_rosso.png' }  },
+    { constructorId: 'williams', staticInfo: { color: '#041e42', imgPath: '/assets/img/logos/williams.png' }  },
+    { constructorId: 'alphatauri', staticInfo: { color: '#022947', imgPath: '/assets/img/logos/alpha_tauri.png' } },
+    { constructorId: 'alpine', staticInfo: { color: '#022947', imgPath: '/assets/img/logos/alpine.png' } },
+    { constructorId: 'aston_martin',staticInfo: { color: '#005850', imgPath: '/assets/img/logos/aston_martin.png' }  }
   ];
 
   private url = 'https://ergast.com/api/f1/';
