@@ -1,0 +1,17 @@
+.header__grid {
+  display: grid;
+  grid-template-columns: 1fr 8rem;
+  grid-template-rows: 8rem;
+  background-color: black;
+
+  p {
+    color: red;
+    padding-left: 40px;
+  }
+
+  &__layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

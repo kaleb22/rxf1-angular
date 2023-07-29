@@ -1,0 +1,22 @@
+<div class="header__grid">
+  <div class="header__grid__layout">
+    <img src="/assets/img/f1_logo.png" width="200" height="200">
+    <p>RxF1 - Angular by Kaleb Dalla</p>
+  </div>
+
+  <div class="header__grid__layout">
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu principal" style="color: #ffffff;">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon fontIcon="speed"></mat-icon>
+        <span>Driver's list</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon fontIcon="fast_forward">priority</mat-icon>
+        <span>Track's list</span>
+      </button>
+    </mat-menu>
+  </div>
+</div>
