@@ -9,11 +9,11 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button mat-menu-item  (click)="redirectPage('/drivers')">
         <mat-icon fontIcon="speed"></mat-icon>
         <span>Driver's list</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="redirectPage('/races')">
         <mat-icon fontIcon="fast_forward">priority</mat-icon>
         <span>Track's list</span>
       </button>
