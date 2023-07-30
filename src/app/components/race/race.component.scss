@@ -5,7 +5,7 @@
   align-items: center;
   width: 12rem;
   height: 14rem;
-  border: solid red 1px;
+  //border: solid red 1px;
 }
 
 .race__container:hover {
@@ -15,4 +15,11 @@
 .race__list__container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+
+  p {
+    color: #ffffff;
+    font-family: "Bebas Neue";
+    font-size: 1rem;
+  }
 }

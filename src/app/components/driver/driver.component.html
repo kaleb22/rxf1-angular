@@ -10,10 +10,9 @@
   </mat-form-field>
 </div>
 
-<div class="container">
-  <div class="container__title">
-     <p class="container__title--style container__title--size"> THE DRIVERS </p>
-  </div>
+<div class="body__container">
+  <app-body-title [title]="'THE DRIVERS'"></app-body-title>
+
   <div class="drivers-container">
     <ng-container *ngIf="driversList$ | async as drivers">
       <div *ngFor="let driver of drivers" class="driver">
@@ -25,8 +24,9 @@
       </div>
     </ng-container>
   </div>
-  <div *ngIf="seasonSelected$ | async as season" class="container__season">
-    <span class="container__title--style container__title--size container__season--layout">{{ season }}</span>
-    <span class="container__title--style container__season--size">season</span>
+
+  <div *ngIf="seasonSelected$ | async as season" class="season">
+    <span class="title--style title--size season--layout">{{ season }}</span>
+    <span class="title--style season--size">season</span>
   </div>
 </div>

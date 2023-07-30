@@ -10,15 +10,21 @@
   </mat-form-field>
 </div>
 
+<div class="body__container">
+  <app-body-title [title]="'THE TRACKS'"></app-body-title>
 
-<div class="race__list__container" *ngIf="raceList$ | async as races">
-
-  <div class="race__container" *ngFor="let race of races">
-    <img src="/assets/img/tracks/Abu_Dhabi.png" width="120" height="120">
-    <p> {{ race.raceName }}</p>
-    <p> {{ race.date }} </p>
-    <button>details</button>
+  <div class="race__list__container" *ngIf="raceList$ | async as races">
+    <div class="race__container" *ngFor="let race of races">
+      <img src="/assets/img/tracks/Abu_Dhabi.png" width="120" height="120">
+      <p> {{ race.raceName }}</p>
+      <p> {{ race.date }} </p>
+      <button>details</button>
+    </div>
   </div>
 
+  <div *ngIf="seasonSelected$ | async as season" class="season">
+    <span class="title--style title--size season--layout">{{ season }}</span>
+    <span class="title--style season--size">season</span>
+  </div>
 </div>
 

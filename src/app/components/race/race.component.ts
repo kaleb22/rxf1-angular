@@ -15,6 +15,7 @@ export class RaceComponent {
 
   seasons: string[];
   raceList$ = this.raceService.raceList$;
+  seasonSelected$ = this.raceService.raceSeasonSelectedAction$;
 
     /* the behaviour of onSelectionChange is the following:
      A selection change event is fired not only when an option is selected but also when it is deselected
