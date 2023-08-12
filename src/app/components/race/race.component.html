@@ -20,6 +20,7 @@
       <p> {{ race.date | date }} </p>
       <button
         class="f1-btn f1-btn__small f1-btn__roboto ripple"
+        (click)="openDialog(race.round, race.raceName)"
       >details</button>
     </div>
   </div>

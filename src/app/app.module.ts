@@ -27,6 +27,8 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RaceComponent } from './components/race/race.component';
 import { BodyTitleComponent } from './components/body-title/body-title.component';
+import { RaceDialogComponent } from './components/race-dialog/race-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 const ngHttpCachingConfig: NgHttpCachingConfig = {
@@ -48,6 +50,7 @@ const ngHttpCachingConfig: NgHttpCachingConfig = {
     HeaderComponent,
     RaceComponent,
     BodyTitleComponent,
+    RaceDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ const ngHttpCachingConfig: NgHttpCachingConfig = {
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
