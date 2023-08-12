@@ -17,10 +17,10 @@ export class RaceComponent {
   raceList$ = this.raceService.raceList$;
   seasonSelected$ = this.raceService.raceSeasonSelectedAction$;
 
-    /* the behaviour of onSelectionChange is the following:
+    /* the behaviour of MatOptionSelectionChange is the following:
      A selection change event is fired not only when an option is selected but also when it is deselected
      We want just the first event, that's why we need to check if event.isUserInput
-  */
+    */
      onSeasonSelected($event: MatOptionSelectionChange, seasonSelected: string): void {
       if($event.isUserInput) {
         this.raceService.selectedSeasonChanged(seasonSelected);

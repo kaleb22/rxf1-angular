@@ -15,9 +15,9 @@
 
   <div class="race__list__container" *ngIf="raceList$ | async as races">
     <div class="race__container" *ngFor="let race of races">
-      <img src="/assets/img/tracks/Abu_Dhabi.png" width="120" height="120">
+      <img [src]="race.imgPath" width="120" height="120">
       <p> {{ race.raceName }}</p>
-      <p> {{ race.date }} </p>
+      <p> {{ race.date | date }} </p>
       <button>details</button>
     </div>
   </div>

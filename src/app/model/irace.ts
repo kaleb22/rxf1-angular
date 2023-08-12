@@ -3,4 +3,5 @@ export interface IRace {
   raceName: string;
   isClicked?: boolean;
   date: string;
+  imgPath: string;
 }

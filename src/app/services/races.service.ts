@@ -21,6 +21,39 @@ export class RacesService {
   private STATUS_ACCIDENT = '3';
   private STATUS_MORETHAN_ONE_LAP = '11';
 
+  private circuitsArray = [
+    { circuitId: 'albert_park', imgPath: '../assets/img/tracks/Australian.png' },
+    { circuitId: 'bahrain', imgPath: '../assets/img/tracks/Bahrain.png' },
+    { circuitId: 'red_bull_ring', imgPath: '/assets/img/tracks/Australian.png' },
+    { circuitId: 'hungaroring', imgPath: '/assets/img/tracks/Hungarian.png' },
+    { circuitId: 'silverstone', imgPath: '/assets/img/tracks/British.png' },
+    { circuitId: 'catalunya', imgPath: '/assets/img/tracks/Spanish.png' },
+    { circuitId: 'spa', imgPath: '/assets/img/tracks/Belgian.png' },
+    { circuitId: 'imola', imgPath: '/assets/img/tracks/Emilia_Romagna.png' },
+    { circuitId: 'monza', imgPath: '/assets/img/tracks/Italian.png' },
+    { circuitId: 'sochi', imgPath: '/assets/img/tracks/Russian.png' },
+    { circuitId: 'portimao', imgPath: '/assets/img/tracks/Portuguese.png' },
+    { circuitId: 'monaco', imgPath: '/assets/img/tracks/Monaco.png' },
+    { circuitId: 'baku', imgPath: '/assets/img/tracks/Azerbaijan.png' },
+    { circuitId: 'ricard', imgPath: '/assets/img/tracks/French.png' },
+    { circuitId: 'zandvoort', imgPath: '/assets/img/tracks/Dutch.png' },
+    { circuitId: 'istanbul', imgPath: '/assets/img/tracks/Turkish.png' },
+    { circuitId: 'americas', imgPath: '/assets/img/tracks/United_States.png' },
+    { circuitId: 'rodriguez', imgPath: '/assets/img/tracks/Mexican.png' },
+    { circuitId: 'interlagos', imgPath: '/assets/img/tracks/Brazilian.png' },
+    { circuitId: 'losail', imgPath: '/assets/img/tracks/Qatar.png' },
+    { circuitId: 'jeddah', imgPath: '/assets/img/tracks/Saudi_Arabian.png' },
+    { circuitId: 'yas_marina', imgPath: '/assets/img/tracks/Abu_Dhabi.png' },
+    { circuitId: 'miami', imgPath: '/assets/img/tracks/Miami.png' },
+    { circuitId: 'vegas', imgPath: '/assets/img/tracks/Las_Vegas.png' },
+    { circuitId: 'villenueve', imgPath: '/assets/img/tracks/Canadian.png' },
+    { circuitId: 'suzuka', imgPath: '/assets/img/tracks/Japanese.png' },
+  ];
+
+  private getCircuitImagePath(circuitId: string): string {
+    return this.circuitsArray.find( trackInf => trackInf.circuitId === circuitId)?.imgPath as string;
+  }
+
   // action stream
   private raceSeasonSelectedSubject = new Subject<string>();
   raceSeasonSelectedAction$ = this.raceSeasonSelectedSubject.asObservable();
@@ -137,13 +170,15 @@ export class RacesService {
                 round: responseRace.round,
                 raceName: responseRace.raceName,
                 isClicked: false,
-                date: responseRace.date
+                date: responseRace.date,
+                imgPath: this.getCircuitImagePath(responseRace.Circuit.circuitId)
               };
               return race;
             });
             return racesArr;
           }),
-          tap( () => this.spinnerService.showSpinner(false))
+          tap( () => this.spinnerService.showSpinner(false)),
+          tap(console.log)
         )
       : of(null)),
     catchError(this.handleError)
