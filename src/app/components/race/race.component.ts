@@ -10,7 +10,7 @@ import { RacesService } from 'src/app/services/races.service';
 export class RaceComponent {
 
   constructor(private raceService: RacesService) {
-    this.seasons = ['2018', '2019', '2020', '2021', '2022'];
+    this.seasons = ['2021', '2022', '2023'];
   }
 
   seasons: string[];
