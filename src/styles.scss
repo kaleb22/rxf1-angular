@@ -86,3 +86,39 @@ body {
     font-size: 2rem;
   }
 }
+
+.f1-btn {
+  background-color: #ff0100;
+  border-radius: 5%;
+  border-style: none;
+  cursor: pointer;
+  font-weight: 600;
+
+  &__medium {
+    width: 8rem;
+    height: 3rem;
+  }
+
+  &__small {
+    width: 4rem;
+    height: 1.5rem;
+  }
+
+  &__roboto {
+    font-family: Roboto;
+  }
+}
+
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+
+.ripple:hover {
+  background: #950303 radial-gradient(circle, transparent 1%, #950303 1%) center/15000%;
+}
+.ripple:active {
+  background-color: #ff0100;
+  background-size: 100%;
+  transition: background 0s;
+}
