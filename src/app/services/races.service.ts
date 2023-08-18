@@ -48,8 +48,9 @@ export class RacesService {
     { circuitId: 'yas_marina', imgPath: '/assets/img/tracks/Abu_Dhabi.png' },
     { circuitId: 'miami', imgPath: '/assets/img/tracks/Miami.png' },
     { circuitId: 'vegas', imgPath: '/assets/img/tracks/Las_Vegas.png' },
-    { circuitId: 'villenueve', imgPath: '/assets/img/tracks/Canadian.png' },
+    { circuitId: 'villeneuve', imgPath: '/assets/img/tracks/Canadian.png' },
     { circuitId: 'suzuka', imgPath: '/assets/img/tracks/Japanese.png' },
+    { circuitId: 'marina_bay', imgPath: '/assets/img/tracks/Singapore.png' },
   ];
 
   private getCircuitImagePath(circuitId: string): string {
