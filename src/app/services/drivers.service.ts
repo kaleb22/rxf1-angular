@@ -40,8 +40,15 @@ export class DriversService {
     this.seasonSelectedSubject.next(seasonSelected);
   }
 
-  getConstructorColor(constructorId: string): IPath {
+  getConstructorInfo(constructorId: string): IPath {
     return this.ConstructorsArray.find( (constructor: any) => constructorId === constructor.constructorId )?.staticInfo as IPath;
+  }
+
+  getConstructorColor(constructorId: string): string {
+    if(constructorId === 'haas') {
+      return '#ed1a3b';
+    }
+    return this.ConstructorsArray.find( (constructor: any) => constructorId === constructor.constructorId )?.staticInfo.color as string;
   }
 
   driverList$ = this.seasonSelected$.pipe(
@@ -57,7 +64,7 @@ export class DriversService {
                   givenName: qualifying.Driver.givenName,
                   familyName: qualifying.Driver.familyName,
                   constructorId: qualifying.Constructor.constructorId,
-                  staticPath: this.getConstructorColor(qualifying.Constructor.constructorId)
+                  staticPath: this.getConstructorInfo(qualifying.Constructor.constructorId)
                 }
                 return driver;
               });

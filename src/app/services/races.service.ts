@@ -1,10 +1,11 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, Subject, switchMap, throwError, withLatestFrom, combineLatest, tap, forkJoin, take, takeUntil, takeWhile, filter } from 'rxjs';
+import { catchError, map, Observable, of, Subject, switchMap, throwError, withLatestFrom, combineLatest, tap, forkJoin, take, takeUntil, takeWhile, filter, concatMap, concatAll, zip } from 'rxjs';
 import { IRace } from '../model/irace';
 import { IResult } from '../model/iresult';
 import { IStatus } from '../model/istatus';
 import { SpinnerService } from './spinner.service';
+import { DriversService } from './drivers.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class RacesService {
 
   constructor(
     private http: HttpClient,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private driversService: DriversService
   ) { }
 
   private races_url = 'https://ergast.com/api/f1';
@@ -104,7 +106,8 @@ export class RacesService {
                 position: responseResult.position,
                 driverName: `${responseResult.Driver.givenName} ${responseResult.Driver.familyName}`,
                 constructor: responseResult.Constructors[0].constructorId,
-                points: responseResult.points
+                points: responseResult.points,
+                constructorColor: this.driversService.getConstructorColor(responseResult.Constructors[0].constructorId)
               }
               return result;
             });
@@ -148,7 +151,8 @@ export class RacesService {
               let result: IResult = {
                 position: responseResult.position,
                 driverName: `${responseResult.Driver.givenName} ${responseResult.Driver.familyName}`,
-                constructor: responseResult.Constructor.constructorId
+                constructor: responseResult.Constructor.constructorId,
+                constructorColor: this.driversService.getConstructorColor(responseResult.Constructor.constructorId)
               }
               return result;
             });
@@ -183,6 +187,8 @@ export class RacesService {
       : of(null)),
     catchError(this.handleError)
   )
+
+  finalResults$ = zip(this.resultsList$, this.standingList$);
 
   spinnerStatus$ = combineLatest([this.resultsList$, this.qualifyingList$, this.standingList$]).pipe(
     filter(([first, second, third]) => first != null && second != null && third != null),

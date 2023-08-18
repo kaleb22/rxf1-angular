@@ -1,30 +1,11 @@
 <p><strong>{{title}}</strong></p>
 
-<div class="wrapper-title" *ngIf="results[0].points; else noPointsTitle">
-  <p>points</p>
-  <span>|</span>
-  <p>position</p>
-  <span>|</span>
-  <p>driver's name</p>
-  <span>|</span>
-  <p>constructor</p>
-</div>
-
-<ng-template #noPointsTitle>
-  <div class="wrapper-title">
-    <p>position</p>
-    <span>|</span>
-    <p>driver's name</p>
-    <span>|</span>
-    <p>constructor</p>
-  </div>
-</ng-template>
-
 <div class="wrapper-results">
-  <div *ngFor="let result of results">
-    <p *ngIf="result.points; else noPoints"><strong>{{ result.points }}</strong> | {{ result.position }} | {{ result.driverName }} | {{ result.constructor }} </p>
-    <ng-template #noPoints>
-      <p> <strong>{{ result.position }}</strong> | {{ result.driverName }} | {{ result.constructor }} </p>
-    </ng-template>
+  <div *ngFor="let result of results" class="results">
+    <div *ngIf="result.points" class="results__position center">{{ result.points }} pts</div>
+    <div class="center" [ngClass]="result.points ? 'results__position-standing' : 'results__position' ">{{ result.position }}</div>
+    <span [ngStyle]="{ 'background': result.constructorColor }" class="results__constructor--color"></span>
+    <div class="results__driver align-rigth">{{ result.driverName }}</div>
+    <div class="results__constructor center">{{ result.constructor }}</div>
   </div>
 </div>

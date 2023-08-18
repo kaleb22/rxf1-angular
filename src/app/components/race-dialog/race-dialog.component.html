@@ -4,8 +4,12 @@
 <div mat-dialog-content>
   <div>
     <app-results
-    [title]="'Race final Results'"
-    [results]="data.raceResults"
+      [title]="'Race final grid'"
+      [results]="data.raceResults[0]"
+    ></app-results>
+    <app-results
+    [title]="'Championship standings'"
+    [results]="data.raceResults[1]"
   ></app-results>
   </div>
 </div>

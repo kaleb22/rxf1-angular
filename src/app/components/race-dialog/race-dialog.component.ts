@@ -13,6 +13,6 @@ import { RacesService } from 'src/app/services/races.service';
 })
 export class RaceDialogComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { raceResults: IResult[], raceName: string }) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { raceResults: IResult[][], raceName: string }) { }
 
 }

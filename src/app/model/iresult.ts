@@ -3,4 +3,5 @@ export interface IResult {
   driverName: string;
   constructor: string;
   points?: string;
+  constructorColor?: string;
 }

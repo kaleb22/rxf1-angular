@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { RacesService } from 'src/app/services/races.service';
 import { MatDialog } from '@angular/material/dialog';
 import { RaceDialogComponent } from '../race-dialog/race-dialog.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-race',
   templateUrl: './race.component.html',
   styleUrls: ['./race.component.scss']
 })
-export class RaceComponent {
+export class RaceComponent implements OnDestroy {
 
   constructor(private raceService: RacesService, public dialog: MatDialog) {
     this.seasons = ['2021', '2022', '2023'];
@@ -19,8 +20,11 @@ export class RaceComponent {
   seasons: string[];
   raceList$ = this.raceService.raceList$;
   seasonSelected$ = this.raceService.raceSeasonSelectedAction$;
-  raceResults$ = this.raceService.resultsList$.subscribe( data => {
-    data ? this.dialog.open(RaceDialogComponent, { data: { raceResults: data, raceName: this.raceName } }) : ''
+  finalResults: Subscription = this.raceService.finalResults$.subscribe( data => {
+    data[0] && data[1] ? this.dialog.open(RaceDialogComponent, {
+      data: { raceResults: data, raceName: this.raceName },
+      width: '850px'
+    }) : ''
   });
 
   /* the behaviour of MatOptionSelectionChange is the following:
@@ -36,7 +40,10 @@ export class RaceComponent {
   openDialog(raceRound: string, raceName: string) {
     this.raceName = raceName;
     this.raceService.roundSelected(raceRound);
+  }
 
+  ngOnDestroy(): void {
+    this.finalResults.unsubscribe();
   }
 
 }
