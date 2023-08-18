@@ -1,7 +1,7 @@
 <div class="select__container">
   <mat-form-field appearance="fill">
     <mat-label>Current Season</mat-label>
-    <mat-select>
+    <mat-select [(ngModel)]="defaultSeason">
       <mat-option *ngFor="let season of seasons" [value]="season"
       (onSelectionChange)="onSeasonSelected($event, season)">
         {{ season }}

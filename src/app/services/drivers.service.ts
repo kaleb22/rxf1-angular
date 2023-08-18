@@ -52,7 +52,6 @@ export class DriversService {
   }
 
   driverList$ = this.seasonSelected$.pipe(
-    tap(() => this.spinnerService.showSpinner(true)),
     switchMap( season =>
       season.length ?
           this.http.get<any>(`${this.url}${season}/qualifying.json`).pipe(

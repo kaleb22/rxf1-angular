@@ -1,9 +1,20 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, Subject, switchMap, throwError, withLatestFrom, combineLatest, tap, forkJoin, take, takeUntil, takeWhile, filter, concatMap, concatAll, zip } from 'rxjs';
+import {
+  catchError,
+  map, Observable,
+  of,
+  Subject,
+  switchMap,
+  throwError,
+  combineLatest,
+  tap,
+  filter,
+  zip,
+  BehaviorSubject,
+  withLatestFrom } from 'rxjs';
 import { IRace } from '../model/irace';
 import { IResult } from '../model/iresult';
-import { IStatus } from '../model/istatus';
 import { SpinnerService } from './spinner.service';
 import { DriversService } from './drivers.service';
 
@@ -19,9 +30,6 @@ export class RacesService {
   ) { }
 
   private races_url = 'https://ergast.com/api/f1';
-  private STATUS_FINISHED = '1';
-  private STATUS_ACCIDENT = '3';
-  private STATUS_MORETHAN_ONE_LAP = '11';
 
   private circuitsArray = [
     { circuitId: 'albert_park', imgPath: '../assets/img/tracks/Australian.png' },
@@ -58,7 +66,7 @@ export class RacesService {
   }
 
   // action stream
-  private raceSeasonSelectedSubject = new Subject<string>();
+  private raceSeasonSelectedSubject = new BehaviorSubject<string>('2021');
   raceSeasonSelectedAction$ = this.raceSeasonSelectedSubject.asObservable();
 
   // action stream
@@ -66,7 +74,6 @@ export class RacesService {
   roundSelected$ = this.roundSelectedSubject.asObservable();
 
   selectedSeasonChanged(seasonSelected: string): void {
-    this.spinnerService.showSpinner(true);
     this.raceSeasonSelectedSubject.next(seasonSelected);
     // when the filter by season changes, clear the select round
     this.roundSelected('');
@@ -76,24 +83,6 @@ export class RacesService {
     this.spinnerService.showSpinner(true);
     this.roundSelectedSubject.next(round);
   }
-
-  status2021Season$ = this.raceSeasonSelectedAction$.pipe(
-    switchMap( season =>
-      season === '2021' ?
-        this.http.get<any>(`${this.races_url}/${season}/status.json`).pipe(
-          map( response => {
-            let statusArr: IStatus[];
-            statusArr = response.MRData.StatusTable.Status.filter( (responseStatus: IStatus) => {
-              return responseStatus.statusId === this.STATUS_FINISHED ||
-                responseStatus.statusId === this.STATUS_ACCIDENT ||
-                responseStatus.statusId === this.STATUS_MORETHAN_ONE_LAP;
-            })
-            return statusArr;
-          })
-        )
-      : of(null)),
-    catchError(this.handleError)
-  )
 
   standingList$ = this.roundSelected$.pipe(
     withLatestFrom(this.raceSeasonSelectedAction$),
@@ -109,28 +98,6 @@ export class RacesService {
                 constructor: responseResult.Constructors[0].constructorId,
                 points: responseResult.points,
                 constructorColor: this.driversService.getConstructorColor(responseResult.Constructors[0].constructorId)
-              }
-              return result;
-            });
-            return resultsArr;
-          })
-        )
-    : of(null)),
-    catchError(this.handleError)
-  )
-
-  qualifyingList$ = this.roundSelected$.pipe(
-    withLatestFrom(this.raceSeasonSelectedAction$),
-    switchMap( ([round, season]) =>
-      round.length ?
-        this.http.get<any>(`${this.races_url}/${season}/${round}/qualifying.json`).pipe(
-          map( response => {
-            let resultsArr: IResult[];
-            resultsArr = response.MRData.RaceTable.Races[0].QualifyingResults.map( (responseResult:any) => {
-              let result: IResult = {
-                position: responseResult.position,
-                driverName: `${responseResult.Driver.givenName} ${responseResult.Driver.familyName}`,
-                constructor: responseResult.Constructor.constructorId
               }
               return result;
             });
@@ -183,18 +150,12 @@ export class RacesService {
             return racesArr;
           }),
           tap( () => this.spinnerService.showSpinner(false)),
-          tap(console.log)
         )
       : of(null)),
     catchError(this.handleError)
   )
 
   finalResults$ = zip(this.resultsList$, this.standingList$);
-
-  spinnerStatus$ = combineLatest([this.resultsList$, this.qualifyingList$, this.standingList$]).pipe(
-    filter(([first, second, third]) => first != null && second != null && third != null),
-    tap(() => this.spinnerService.showSpinner(false)),
-  )
 
   private handleError(err: HttpErrorResponse): Observable<never> {
     let errorMessage = '';

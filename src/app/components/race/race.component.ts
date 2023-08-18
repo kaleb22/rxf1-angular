@@ -1,3 +1,4 @@
+import { SpinnerService } from './../../services/spinner.service';
 import { Component, OnDestroy } from '@angular/core';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { RacesService } from 'src/app/services/races.service';
@@ -12,19 +13,35 @@ import { Subscription } from 'rxjs';
 })
 export class RaceComponent implements OnDestroy {
 
-  constructor(private raceService: RacesService, public dialog: MatDialog) {
+  constructor(
+    private raceService: RacesService,
+    public dialog: MatDialog,
+    private spinnerService: SpinnerService,
+  ) {
     this.seasons = ['2021', '2022', '2023'];
   }
 
+  defaultSeason: string = '2021';
   raceName: string;
   seasons: string[];
+
   raceList$ = this.raceService.raceList$;
   seasonSelected$ = this.raceService.raceSeasonSelectedAction$;
-  finalResults: Subscription = this.raceService.finalResults$.subscribe( data => {
+
+  finalResultsSub: Subscription = this.raceService.finalResults$.subscribe( data => {
     data[0] && data[1] ? this.dialog.open(RaceDialogComponent, {
       data: { raceResults: data, raceName: this.raceName },
       width: '850px'
-    }) : ''
+    }) : '';
+
+    if(data) {
+      this.spinnerService.showSpinner(false);
+    }
+  });
+
+  defaultSeasonSub: Subscription = this.raceService.raceSeasonSelectedAction$.subscribe( season => {
+    this.defaultSeason = season;
+    this.spinnerService.showSpinner(true);
   });
 
   /* the behaviour of MatOptionSelectionChange is the following:
@@ -54,7 +71,8 @@ export class RaceComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.finalResults.unsubscribe();
+    this.finalResultsSub.unsubscribe();
+    this.defaultSeasonSub.unsubscribe();
   }
 
 }
