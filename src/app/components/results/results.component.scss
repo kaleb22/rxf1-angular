@@ -4,12 +4,12 @@
   margin: 0.5rem;
 
   &__position {
-    width: 4rem;
+    width: 2rem;
     font-weight: 600;
   }
 
   &__position-standing {
-    width: 2rem;
+    width: 5rem;
     font-weight: 600;
   }
 
@@ -28,6 +28,14 @@
   }
 }
 
+.results-height {
+  height: 26rem;
+}
+
+.standings-heigth {
+  height: 30rem;
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -41,9 +49,7 @@
 .wrapper-results {
   display: flex;
   flex-wrap: wrap;
-  //min-width: 37rem;
   flex-direction: column;
-  height: 26rem;
 }
 
 .wrapper-title {

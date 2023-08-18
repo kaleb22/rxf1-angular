@@ -31,7 +31,7 @@ export class RaceComponent implements OnDestroy {
   finalResultsSub: Subscription = this.raceService.finalResults$.subscribe( data => {
     data[0] && data[1] ? this.dialog.open(RaceDialogComponent, {
       data: { raceResults: data, raceName: this.raceName },
-      width: '850px'
+      width: '870px'
     }) : '';
 
     if(data) {

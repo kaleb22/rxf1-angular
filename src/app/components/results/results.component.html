@@ -1,9 +1,9 @@
 <p><strong>{{title}}</strong></p>
 
-<div class="wrapper-results">
-  <div *ngFor="let result of results" class="results">
-    <div *ngIf="result.points" class="results__position center">{{ result.points }} pts</div>
-    <div class="center" [ngClass]="result.points ? 'results__position-standing' : 'results__position' ">{{ result.position }}</div>
+<div class="wrapper-results" [ngClass]="standing ? 'standings-heigth' : 'results-height'">
+  <div *ngFor="let result of results" class="results" >
+    <div *ngIf="result.points" class="results__position-standing center">{{ result.points }} pts</div>
+    <div class="center" [ngClass]="result.points ? 'results__position' : 'results__position-standing' ">{{ result.position }}</div>
     <span [ngStyle]="{ 'background': result.constructorColor }" class="results__constructor--color"></span>
     <div class="results__driver align-rigth">{{ result.driverName }}</div>
     <div class="results__constructor center">{{ result.constructor }}</div>

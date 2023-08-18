@@ -12,4 +12,5 @@ export class ResultsComponent {
 
   @Input() title: string;
   @Input() results: IResult[];
+  @Input() standing: boolean;
 }
