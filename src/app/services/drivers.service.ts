@@ -32,7 +32,7 @@ export class DriversService {
 
   private url = 'https://ergast.com/api/f1/';
 
-  private seasonSelectedSubject = new BehaviorSubject<string>('2019');
+  private seasonSelectedSubject = new BehaviorSubject<string>('2021');
   seasonSelected$ = this.seasonSelectedSubject.asObservable();
 
   seasonSelected(seasonSelected: string): void {
@@ -52,6 +52,7 @@ export class DriversService {
   }
 
   driverList$ = this.seasonSelected$.pipe(
+    tap(() => this.spinnerService.showSpinner(true)),
     switchMap( season =>
       season.length ?
           this.http.get<any>(`${this.url}${season}/qualifying.json`).pipe(
