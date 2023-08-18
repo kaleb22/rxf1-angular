@@ -2,14 +2,18 @@
   {{ data.raceName }}
 </h1>
 <div mat-dialog-content>
-  <div>
+  <div *ngIf="data.raceResults; else noInfo">
     <app-results
       [title]="'Race final grid'"
       [results]="data.raceResults[0]"
     ></app-results>
     <app-results
-    [title]="'Championship standings'"
-    [results]="data.raceResults[1]"
-  ></app-results>
+      [title]="'Championship standings'"
+      [results]="data.raceResults[1]"
+    ></app-results>
   </div>
+
+  <ng-template #noInfo>
+    <p>There isn't data available yet</p>
+  </ng-template>
 </div>

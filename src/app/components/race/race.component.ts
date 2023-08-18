@@ -37,9 +37,20 @@ export class RaceComponent implements OnDestroy {
     }
   }
 
-  openDialog(raceRound: string, raceName: string) {
+  openDialog(raceRound: string, raceName: string, date: string) {
+    let today = new Date().getTime();
+    let raceDate = new Date(date).getTime();
     this.raceName = raceName;
-    this.raceService.roundSelected(raceRound);
+
+    if(today > raceDate) {
+      // race date occured already
+      this.raceService.roundSelected(raceRound);
+    } else {
+      // race didn't happen yet
+      this.dialog.open(RaceDialogComponent, {
+        data: { raceName: this.raceName }
+      });
+    }
   }
 
   ngOnDestroy(): void {
