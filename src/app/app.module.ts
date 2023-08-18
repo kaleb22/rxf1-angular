@@ -17,10 +17,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { DriverListComponent } from './components/driver-list/driver-list.component';
-import { RaceListComponent } from './components/race-list/race-list.component';
-import { RaceListWrapperComponent } from './components/race-list-wrapper/race-list-wrapper.component';
-import { RaceDetailsComponent } from './components/race-details/race-details.component';
 import { ResultsComponent } from './components/results/results.component';
 import { DriverComponent } from './components/driver/driver.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
@@ -40,10 +36,6 @@ const ngHttpCachingConfig: NgHttpCachingConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    DriverListComponent,
-    RaceListComponent,
-    RaceListWrapperComponent,
-    RaceDetailsComponent,
     ResultsComponent,
     DriverComponent,
     WelcomeComponent,
