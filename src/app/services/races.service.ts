@@ -7,9 +7,7 @@ import {
   Subject,
   switchMap,
   throwError,
-  combineLatest,
   tap,
-  filter,
   zip,
   BehaviorSubject,
   withLatestFrom } from 'rxjs';
@@ -80,7 +78,6 @@ export class RacesService {
   }
 
   roundSelected(round: string): void {
-    this.spinnerService.showSpinner(true);
     this.roundSelectedSubject.next(round);
   }
 
@@ -149,7 +146,10 @@ export class RacesService {
             });
             return racesArr;
           }),
-          tap( () => this.spinnerService.showSpinner(false)),
+          tap( () => {
+            this.spinnerService.showSpinner(false);
+            console.log('inside request raceList');
+          }),
         )
       : of(null)),
     catchError(this.handleError)

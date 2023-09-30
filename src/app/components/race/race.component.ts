@@ -34,7 +34,7 @@ export class RaceComponent implements OnDestroy {
       width: '870px'
     }) : '';
 
-    if(data) {
+    if( data[0] && data[1] ) {
       this.spinnerService.showSpinner(false);
     }
   });
@@ -61,6 +61,7 @@ export class RaceComponent implements OnDestroy {
 
     if(today > raceDate) {
       // race date occured already
+      this.spinnerService.showSpinner(true);
       this.raceService.roundSelected(raceRound);
     } else {
       // race didn't happen yet
