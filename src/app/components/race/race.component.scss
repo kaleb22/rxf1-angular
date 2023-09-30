@@ -5,11 +5,11 @@
   align-items: center;
   width: 12rem;
   height: 14rem;
-  //border: solid red 1px;
+  transition: transform .7s ease-in-out;
 }
 
 .race__container:hover {
-  scale: 1.2;
+  transform: scale(1.2);
 }
 
 .race__list__container {
