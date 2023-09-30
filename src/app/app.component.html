@@ -1,8 +1,6 @@
 <app-header></app-header>
 
 <div class="body">
-  <!-- <app-race></app-race>
-  <app-driver></app-driver> -->
   <router-outlet></router-outlet>
 </div>
 
@@ -13,23 +11,3 @@
     </div>
   </div>
 </div>
-
-<!-- <div class="wrapper">
-  <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-    <a mat-tab-link *ngFor="let tab of navLinks"
-       [routerLink]="tab.link"
-       routerLinkActive #rla="routerLinkActive"
-       [active]="rla.isActive"
-    > {{ tab.label }} </a>
-  </nav>
-  <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
-</div>
-
-<div *ngIf="spinnerAction$ | async" class="wrapper-spinner">
-  <div class="wrapper-spinner__center">
-    <div class="wrapper-spinner__center--loading">
-      <mat-spinner></mat-spinner>
-    </div>
-  </div>
-</div>
-<router-outlet></router-outlet> -->
