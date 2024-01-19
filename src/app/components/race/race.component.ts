@@ -5,11 +5,18 @@ import { RacesService } from 'src/app/services/races.service';
 import { MatDialog } from '@angular/material/dialog';
 import { RaceDialogComponent } from '../race-dialog/race-dialog.component';
 import { Subscription } from 'rxjs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { BodyTitleComponent } from '../body-title/body-title.component';
+import { CommonModule } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
 
 @Component({
+  standalone: true,
   selector: 'app-race',
   templateUrl: './race.component.html',
-  styleUrls: ['./race.component.scss']
+  styleUrls: ['./race.component.scss'],
+  imports: [FormsModule, CommonModule, MatFormFieldModule, MatSelectModule, BodyTitleComponent]
 })
 export class RaceComponent implements OnDestroy {
 
