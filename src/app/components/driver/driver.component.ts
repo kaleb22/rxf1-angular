@@ -1,14 +1,21 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatOptionSelectionChange } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { DriversService } from 'src/app/services/drivers.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
+import { BodyTitleComponent } from '../body-title/body-title.component';
 
 @Component({
+  standalone: true,
   selector: 'app-driver',
   templateUrl: './driver.component.html',
-  styleUrls: ['./driver.component.scss']
+  styleUrls: ['./driver.component.scss'],
+  imports: [CommonModule, FormsModule, MatFormFieldModule, MatSelectModule, BodyTitleComponent],
 })
 export class DriverComponent implements OnDestroy {
 
