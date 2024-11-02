@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
 import { RaceDialogComponent } from './race-dialog.component';
 
@@ -8,7 +9,10 @@ describe('RaceDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RaceDialogComponent ]
+      imports: [RaceDialogComponent, MatDialogModule],
+      providers: [
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+      ]
     })
     .compileComponents();
 
