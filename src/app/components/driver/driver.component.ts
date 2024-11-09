@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatOptionSelectionChange } from '@angular/material/core';
@@ -15,7 +15,7 @@ import { BodyTitleComponent } from '../body-title/body-title.component';
   selector: 'app-driver',
   templateUrl: './driver.component.html',
   styleUrls: ['./driver.component.scss'],
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatSelectModule, BodyTitleComponent],
+  imports: [CommonModule, FormsModule, MatFormFieldModule, MatSelectModule, BodyTitleComponent, NgOptimizedImage],
   providers: [DriversService]
 })
 export class DriverComponent implements OnDestroy {
