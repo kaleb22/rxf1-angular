@@ -1,15 +1,16 @@
-import { SpinnerService } from './../../services/spinner.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Component, OnDestroy } from '@angular/core';
 import { MatOptionSelectionChange } from '@angular/material/core';
-import { RacesService } from 'src/app/services/races.service';
 import { MatDialog } from '@angular/material/dialog';
-import { RaceDialogComponent } from '../race-dialog/race-dialog.component';
 import { Subscription } from 'rxjs';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { BodyTitleComponent } from '../body-title/body-title.component';
-import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
+
+import { BodyTitleComponent } from '../body-title/body-title.component';
+import { RaceDialogComponent } from '../race-dialog/race-dialog.component';
+import { SpinnerService } from './../../services/spinner.service';
+import { RacesService } from './../../services/races.service';
 
 @Component({
   standalone: true,

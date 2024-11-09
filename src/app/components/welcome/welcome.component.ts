@@ -1,16 +1,15 @@
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.scss']
+  styleUrls: ['./welcome.component.scss'],
+  standalone: true
 })
 export class WelcomeComponent {
 
-  constructor(private router: Router) {
-
-  }
+  private router = inject(Router);
 
   goToDriversPage(event: Event) {
     event.preventDefault();

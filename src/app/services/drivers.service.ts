@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, switchMap, map, of, Observable, throwError, catchError, tap } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
 import { IDriver, IPath } from '../model/idriver';
 import { SpinnerService } from './spinner.service';
 

@@ -1,12 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ILink } from './model/ilink';
 import { SpinnerService } from './services/spinner.service';
+import { HeaderComponent } from './components/header/header.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [CommonModule, HeaderComponent, RouterModule, MatProgressSpinnerModule]
 })
 export class AppComponent implements OnInit {
   title = 'rxf1-angular';

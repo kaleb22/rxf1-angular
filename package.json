@@ -6,36 +6,32 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "jest"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^15.0.4",
-    "@angular/cdk": "^15.0.4",
-    "@angular/common": "^15.0.4",
-    "@angular/compiler": "^15.0.4",
-    "@angular/core": "^15.0.4",
-    "@angular/forms": "^15.0.4",
-    "@angular/material": "^15.0.4",
-    "@angular/platform-browser": "^15.0.4",
-    "@angular/platform-browser-dynamic": "^15.0.4",
-    "@angular/router": "^15.0.4",
-    "ng-http-caching": "^15.0.1",
+    "@angular/animations": "^18.2.10",
+    "@angular/cdk": "^17.3.10",
+    "@angular/common": "^18.2.10",
+    "@angular/compiler": "^18.2.10",
+    "@angular/core": "^18.2.10",
+    "@angular/forms": "^18.2.10",
+    "@angular/material": "^17.3.10",
+    "@angular/platform-browser": "^18.2.10",
+    "@angular/platform-browser-dynamic": "^18.2.10",
+    "@angular/router": "^18.2.10",
+    "ng-http-caching": "^18.0.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.14.10"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^15.0.5",
-    "@angular/cli": "~15.0.5",
-    "@angular/compiler-cli": "^15.0.4",
-    "@types/jasmine": "~4.0.0",
-    "jasmine-core": "~4.1.0",
-    "karma": "~6.3.0",
-    "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.0.0",
-    "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.8.4"
+    "@angular-builders/jest": "^18.0.0",
+    "@angular/build": "^18.2.11",
+    "@angular/cli": "~18.2.11",
+    "@angular/compiler-cli": "^18.2.10",
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "typescript": "~5.4.5"
   }
 }

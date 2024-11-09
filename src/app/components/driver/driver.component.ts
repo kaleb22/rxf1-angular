@@ -6,9 +6,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { DriversService } from 'src/app/services/drivers.service';
-import { SpinnerService } from 'src/app/services/spinner.service';
+
+import { DriversService } from '../../services/drivers.service';
+import { SpinnerService } from '../../services/spinner.service';
 import { BodyTitleComponent } from '../body-title/body-title.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   standalone: true,
@@ -16,6 +18,7 @@ import { BodyTitleComponent } from '../body-title/body-title.component';
   templateUrl: './driver.component.html',
   styleUrls: ['./driver.component.scss'],
   imports: [CommonModule, FormsModule, MatFormFieldModule, MatSelectModule, BodyTitleComponent],
+  providers: [DriversService, SpinnerService]
 })
 export class DriverComponent implements OnDestroy {
 
