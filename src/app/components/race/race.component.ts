@@ -3,9 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { Component, OnDestroy } from '@angular/core';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { Subscription } from 'rxjs';
 
 import { BodyTitleComponent } from '../body-title/body-title.component';
 import { RaceDialogComponent } from '../race-dialog/race-dialog.component';
@@ -26,7 +26,7 @@ export class RaceComponent implements OnDestroy {
     public dialog: MatDialog,
     private spinnerService: SpinnerService,
   ) {
-    this.seasons = ['2021', '2022', '2023'];
+    this.seasons = ['2021', '2022', '2023', '2024'];
   }
 
   defaultSeason: string = '2021';

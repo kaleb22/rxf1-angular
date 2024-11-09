@@ -15,7 +15,12 @@
 
   <div class="race__list__container" *ngIf="raceList$ | async as races">
     <div class="race__container" *ngFor="let race of races">
-      <img [src]="race.imgPath" width="120" height="120">
+      <img *ngIf="race.imgPath; else noImg" [src]="race.imgPath" width="120" height="120">
+      <ng-template #noImg>
+        <div class="race__container__no-img">
+          <p>no img</p>
+        </div>
+      </ng-template>
       <p> {{ race.raceName }}</p>
       <p> {{ race.date | date }} </p>
       <button

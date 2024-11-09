@@ -6,8 +6,6 @@ import { Subject } from 'rxjs';
 })
 export class SpinnerService {
 
-  constructor() { }
-
   // action stream
   private spinnerSubject = new Subject<boolean>();
   spinnerAction$ = this.spinnerSubject.asObservable();

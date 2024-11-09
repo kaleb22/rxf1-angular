@@ -1,40 +1,37 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 import { DriversService } from '../../services/drivers.service';
 import { SpinnerService } from '../../services/spinner.service';
 import { BodyTitleComponent } from '../body-title/body-title.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   standalone: true,
   selector: 'app-driver',
   templateUrl: './driver.component.html',
   styleUrls: ['./driver.component.scss'],
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatSelectModule, BodyTitleComponent],
-  providers: [DriversService, SpinnerService]
+  imports: [CommonModule, FormsModule, MatFormFieldModule, MatSelectModule, BodyTitleComponent, NgOptimizedImage],
+  providers: [DriversService]
 })
 export class DriverComponent implements OnDestroy {
 
   constructor(private driversService: DriversService, private spinnerService: SpinnerService) {
-    this.seasons = ['2021', '2022', '2023'];
+    this.seasons = ['2021', '2022', '2023', '2024'];
    }
 
   seasons: string[];
   defaultSeason: string;
 
-  driversList$ = this.driversService.driverList$.pipe(
-    tap( (drivers) => console.log(drivers))
-  );
+  driversList$ = this.driversService.driverList$;
 
   seasonSelected$ = this.driversService.seasonSelected$;
   sub: Subscription = this.driversService.seasonSelected$.subscribe( season => {
+    console.log('season');
     this.defaultSeason = season;
     this.spinnerService.showSpinner(true);
   });
