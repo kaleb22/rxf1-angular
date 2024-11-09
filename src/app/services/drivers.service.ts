@@ -28,7 +28,9 @@ export class DriversService {
     { constructorId: 'williams', staticInfo: { color: '#041e42', imgPath: '/assets/img/logos/williams.png' }  },
     { constructorId: 'alphatauri', staticInfo: { color: '#022947', imgPath: '/assets/img/logos/alpha_tauri.png' } },
     { constructorId: 'alpine', staticInfo: { color: '#022947', imgPath: '/assets/img/logos/alpine.png' } },
-    { constructorId: 'aston_martin',staticInfo: { color: '#005850', imgPath: '/assets/img/logos/aston_martin.png' }  }
+    { constructorId: 'aston_martin',staticInfo: { color: '#005850', imgPath: '/assets/img/logos/aston_martin.png' }  },
+    { constructorId: 'rb',staticInfo: { color: '#1534CC', imgPath: '/assets/img/logos/rb.png' }  },
+    { constructorId: 'sauber',staticInfo: { color: '#00C808', imgPath: '/assets/img/logos/sauber.png' }  },
   ];
 
   private url = 'https://ergast.com/api/f1/';
@@ -71,7 +73,9 @@ export class DriversService {
               });
               return drivers.sort((a, b) => a.constructorId.localeCompare(b.constructorId));
             }),
-            tap(() => this.spinnerService.showSpinner(false)),
+            tap(() => {
+              this.spinnerService.showSpinner(false)
+            }),
             catchError(this.handleError)
         ) : of(null)),
   );
