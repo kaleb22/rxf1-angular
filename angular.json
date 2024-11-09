@@ -23,7 +23,7 @@
           "builder": "@angular/build:application",
           "options": {
             "outputPath": {
-              "base": "dist/rxf1-angular/browser"
+              "base": "dist/rxf1-angular"
             },
             "index": "src/index.html",
             "polyfills": [
