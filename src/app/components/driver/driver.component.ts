@@ -11,17 +11,25 @@ import { SpinnerService } from '../../services/spinner.service';
 import { BodyTitleComponent } from '../body-title/body-title.component';
 
 @Component({
-    selector: 'app-driver',
-    templateUrl: './driver.component.html',
-    styleUrls: ['./driver.component.scss'],
-    imports: [CommonModule, FormsModule, MatFormFieldModule, MatSelectModule, BodyTitleComponent, NgOptimizedImage],
-    providers: [DriversService]
+  selector: 'app-driver',
+  templateUrl: './driver.component.html',
+  styleUrls: ['./driver.component.scss'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    BodyTitleComponent,
+    NgOptimizedImage,
+  ],
 })
 export class DriverComponent implements OnDestroy {
-
-  constructor(private driversService: DriversService, private spinnerService: SpinnerService) {
+  constructor(
+    private driversService: DriversService,
+    private spinnerService: SpinnerService,
+  ) {
     this.seasons = ['2021', '2022', '2023', '2024'];
-   }
+  }
 
   seasons: string[];
   defaultSeason: string;
@@ -29,18 +37,20 @@ export class DriverComponent implements OnDestroy {
   driversList$ = this.driversService.driverList$;
 
   seasonSelected$ = this.driversService.seasonSelected$;
-  sub: Subscription = this.driversService.seasonSelected$.subscribe( season => {
-    console.log('season');
-    this.defaultSeason = season;
-    this.spinnerService.showSpinner(true);
-  });
+  sub: Subscription = this.driversService.seasonSelected$.subscribe(
+    (season) => {
+      console.log('season');
+      this.defaultSeason = season;
+      this.spinnerService.showSpinner(true);
+    },
+  );
 
   /* the behaviour of onSelectionChange is the following:
      A selection change event is fired not only when an option is selected but also when it is deselected
      We want just the first event, that's why we need to check if event.isUserInput
   */
   onSeasonSelected($event: MatOptionSelectionChange, seasonSelected: string) {
-    if($event.isUserInput) {
+    if ($event.isUserInput) {
       this.driversService.seasonSelected(seasonSelected);
     }
   }
