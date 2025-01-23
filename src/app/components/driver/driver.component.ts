@@ -11,12 +11,11 @@ import { SpinnerService } from '../../services/spinner.service';
 import { BodyTitleComponent } from '../body-title/body-title.component';
 
 @Component({
-  standalone: true,
-  selector: 'app-driver',
-  templateUrl: './driver.component.html',
-  styleUrls: ['./driver.component.scss'],
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatSelectModule, BodyTitleComponent, NgOptimizedImage],
-  providers: [DriversService]
+    selector: 'app-driver',
+    templateUrl: './driver.component.html',
+    styleUrls: ['./driver.component.scss'],
+    imports: [CommonModule, FormsModule, MatFormFieldModule, MatSelectModule, BodyTitleComponent, NgOptimizedImage],
+    providers: [DriversService]
 })
 export class DriverComponent implements OnDestroy {
 

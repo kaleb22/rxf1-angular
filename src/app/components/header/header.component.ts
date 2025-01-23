@@ -4,11 +4,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  imports: [MatIconModule, MatMenuModule],
-  standalone: true
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    imports: [MatIconModule, MatMenuModule]
 })
 export class HeaderComponent {
 

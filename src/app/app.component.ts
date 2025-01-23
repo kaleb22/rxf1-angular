@@ -8,11 +8,10 @@ import { HeaderComponent } from './components/header/header.component';
 import { ILink } from './model/ilink';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  standalone: true,
-  imports: [CommonModule, HeaderComponent, RouterModule, MatProgressSpinnerModule],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    imports: [CommonModule, HeaderComponent, RouterModule, MatProgressSpinnerModule]
 })
 export class AppComponent implements OnInit {
   title = 'rxf1-angular';
