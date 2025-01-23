@@ -5,15 +5,12 @@ import { Component, inject } from '@angular/core';
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss'],
-  standalone: true
 })
 export class WelcomeComponent {
-
   private router = inject(Router);
 
   goToDriversPage(event: Event) {
     event.preventDefault();
     this.router.navigateByUrl('/drivers');
   }
-
 }

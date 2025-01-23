@@ -13,11 +13,10 @@ import { SpinnerService } from './../../services/spinner.service';
 import { RacesService } from './../../services/races.service';
 
 @Component({
-  standalone: true,
-  selector: 'app-race',
-  templateUrl: './race.component.html',
-  styleUrls: ['./race.component.scss'],
-  imports: [FormsModule, CommonModule, MatFormFieldModule, MatSelectModule, BodyTitleComponent]
+    selector: 'app-race',
+    templateUrl: './race.component.html',
+    styleUrls: ['./race.component.scss'],
+    imports: [FormsModule, CommonModule, MatFormFieldModule, MatSelectModule, BodyTitleComponent]
 })
 export class RaceComponent implements OnDestroy {
 

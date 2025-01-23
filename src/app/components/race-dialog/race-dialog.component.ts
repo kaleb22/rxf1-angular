@@ -6,11 +6,10 @@ import { ResultsComponent } from '../results/results.component';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  standalone: true,
-  selector: 'app-race-dialog',
-  templateUrl: './race-dialog.component.html',
-  styleUrls: ['./race-dialog.component.scss'],
-  imports: [MatDialogModule, NgIf, ResultsComponent, MatButtonModule]
+    selector: 'app-race-dialog',
+    templateUrl: './race-dialog.component.html',
+    styleUrls: ['./race-dialog.component.scss'],
+    imports: [MatDialogModule, NgIf, ResultsComponent, MatButtonModule]
 })
 export class RaceDialogComponent {
 

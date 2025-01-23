@@ -2,7 +2,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   catchError,
-  map, Observable,
+  map,
+  Observable,
   of,
   Subject,
   switchMap,
@@ -10,29 +11,36 @@ import {
   tap,
   zip,
   BehaviorSubject,
-  withLatestFrom } from 'rxjs';
+  withLatestFrom,
+} from 'rxjs';
+
 import { IRace } from '../model/irace';
 import { IResult } from '../model/iresult';
 import { SpinnerService } from './spinner.service';
 import { DriversService } from './drivers.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RacesService {
-
   constructor(
     private http: HttpClient,
     private spinnerService: SpinnerService,
-    private driversService: DriversService
-  ) { }
+    private driversService: DriversService,
+  ) {}
 
   private races_url = 'https://ergast.com/api/f1';
 
   private circuitsArray = [
-    { circuitId: 'albert_park', imgPath: '../assets/img/tracks/Australian.png' },
+    {
+      circuitId: 'albert_park',
+      imgPath: '../assets/img/tracks/Australian.png',
+    },
     { circuitId: 'bahrain', imgPath: '../assets/img/tracks/Bahrain.png' },
-    { circuitId: 'red_bull_ring', imgPath: '/assets/img/tracks/Australian.png' },
+    {
+      circuitId: 'red_bull_ring',
+      imgPath: '/assets/img/tracks/Australian.png',
+    },
     { circuitId: 'hungaroring', imgPath: '/assets/img/tracks/Hungarian.png' },
     { circuitId: 'silverstone', imgPath: '/assets/img/tracks/British.png' },
     { circuitId: 'catalunya', imgPath: '/assets/img/tracks/Spanish.png' },
@@ -60,7 +68,9 @@ export class RacesService {
   ];
 
   private getCircuitImagePath(circuitId: string): string {
-    return this.circuitsArray.find( trackInf => trackInf.circuitId === circuitId)?.imgPath as string;
+    return this.circuitsArray.find(
+      (trackInf) => trackInf.circuitId === circuitId,
+    )?.imgPath as string;
   }
 
   // action stream
@@ -68,7 +78,7 @@ export class RacesService {
   raceSeasonSelectedAction$ = this.raceSeasonSelectedSubject.asObservable();
 
   // action stream
-  private roundSelectedSubject = new Subject<string>;
+  private roundSelectedSubject = new Subject<string>();
   roundSelected$ = this.roundSelectedSubject.asObservable();
 
   selectedSeasonChanged(seasonSelected: string): void {
@@ -83,77 +93,101 @@ export class RacesService {
 
   standingList$ = this.roundSelected$.pipe(
     withLatestFrom(this.raceSeasonSelectedAction$),
-    switchMap( ([round, season]) =>
-      round.length ?
-        this.http.get<any>(`${this.races_url}/${season}/${round}/driverStandings.json`).pipe(
-          map( response => {
-            let resultsArr: IResult[];
-            resultsArr = response.MRData.StandingsTable.StandingsLists[0].DriverStandings.map( (responseResult:any) => {
-              let result: IResult = {
-                position: responseResult.position,
-                driverName: `${responseResult.Driver.givenName} ${responseResult.Driver.familyName}`,
-                constructor: responseResult.Constructors[0].constructorId,
-                points: responseResult.points,
-                constructorColor: this.driversService.getConstructorColor(responseResult.Constructors[0].constructorId)
-              }
-              return result;
-            });
-            return resultsArr;
-          })
-        )
-    : of(null)),
-    catchError(this.handleError)
-  )
+    switchMap(([round, season]) =>
+      round.length
+        ? this.http
+            .get<any>(
+              `${this.races_url}/${season}/${round}/driverStandings.json`,
+            )
+            .pipe(
+              map((response) => {
+                let resultsArr: IResult[];
+                resultsArr =
+                  response.MRData.StandingsTable.StandingsLists[0].DriverStandings.map(
+                    (responseResult: any) => {
+                      let result: IResult = {
+                        position: responseResult.position,
+                        driverName: `${responseResult.Driver.givenName} ${responseResult.Driver.familyName}`,
+                        constructor:
+                          responseResult.Constructors[0].constructorId,
+                        points: responseResult.points,
+                        constructorColor:
+                          this.driversService.getConstructorColor(
+                            responseResult.Constructors[0].constructorId,
+                          ),
+                      };
+                      return result;
+                    },
+                  );
+                return resultsArr;
+              }),
+            )
+        : of(null),
+    ),
+    catchError(this.handleError),
+  );
 
   resultsList$ = this.roundSelected$.pipe(
     withLatestFrom(this.raceSeasonSelectedAction$),
-    switchMap( ([round, season]) =>
-      round.length ?
-        this.http.get<any>(`${this.races_url}/${season}/${round}/results.json`).pipe(
-          map( response => {
-            let resultsArr: IResult[];
-            resultsArr = response.MRData.RaceTable.Races[0].Results.map( (responseResult:any) => {
-              let result: IResult = {
-                position: responseResult.position,
-                driverName: `${responseResult.Driver.givenName} ${responseResult.Driver.familyName}`,
-                constructor: responseResult.Constructor.constructorId,
-                constructorColor: this.driversService.getConstructorColor(responseResult.Constructor.constructorId)
-              }
-              return result;
-            });
-            return resultsArr;
-          })
-        )
-    : of(null)),
-    catchError(this.handleError)
-  )
+    switchMap(([round, season]) =>
+      round.length
+        ? this.http
+            .get<any>(`${this.races_url}/${season}/${round}/results.json`)
+            .pipe(
+              map((response) => {
+                let resultsArr: IResult[];
+                resultsArr = response.MRData.RaceTable.Races[0].Results.map(
+                  (responseResult: any) => {
+                    let result: IResult = {
+                      position: responseResult.position,
+                      driverName: `${responseResult.Driver.givenName} ${responseResult.Driver.familyName}`,
+                      constructor: responseResult.Constructor.constructorId,
+                      constructorColor: this.driversService.getConstructorColor(
+                        responseResult.Constructor.constructorId,
+                      ),
+                    };
+                    return result;
+                  },
+                );
+                return resultsArr;
+              }),
+            )
+        : of(null),
+    ),
+    catchError(this.handleError),
+  );
 
   raceList$ = this.raceSeasonSelectedAction$.pipe(
-    switchMap( season =>
-      season.length ?
-        this.http.get<any>(`${this.races_url}/${season}.json`).pipe(
-          map( response => {
-            let racesArr: IRace[];
-            racesArr = response.MRData.RaceTable.Races.map( ( responseRace: any ) => {
-              let race: IRace = {
-                round: responseRace.round,
-                raceName: responseRace.raceName,
-                isClicked: false,
-                date: responseRace.date,
-                imgPath: this.getCircuitImagePath(responseRace.Circuit.circuitId)
-              };
-              return race;
-            });
-            return racesArr;
-          }),
-          tap( () => {
-            this.spinnerService.showSpinner(false);
-            console.log('inside request raceList');
-          }),
-        )
-      : of(null)),
-    catchError(this.handleError)
-  )
+    switchMap((season) =>
+      season.length
+        ? this.http.get<any>(`${this.races_url}/${season}.json`).pipe(
+            map((response) => {
+              let racesArr: IRace[];
+              racesArr = response.MRData.RaceTable.Races.map(
+                (responseRace: any) => {
+                  let race: IRace = {
+                    round: responseRace.round,
+                    raceName: responseRace.raceName,
+                    isClicked: false,
+                    date: responseRace.date,
+                    imgPath: this.getCircuitImagePath(
+                      responseRace.Circuit.circuitId,
+                    ),
+                  };
+                  return race;
+                },
+              );
+              return racesArr;
+            }),
+            tap(() => {
+              this.spinnerService.showSpinner(false);
+              console.log('inside request raceList');
+            }),
+          )
+        : of(null),
+    ),
+    catchError(this.handleError),
+  );
 
   finalResults$ = zip(this.resultsList$, this.standingList$);
 
@@ -162,8 +196,9 @@ export class RacesService {
     if (err.error instanceof ErrorEvent) {
       errorMessage = `An error occurred: ${err.error.message}`;
     } else {
-      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message
-        }`;
+      errorMessage = `Server returned code: ${err.status}, error message is: ${
+        err.message
+      }`;
     }
     console.error(errorMessage);
     return throwError(() => new Error(errorMessage));
