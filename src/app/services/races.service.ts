@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   map,
   of,
@@ -20,11 +20,9 @@ import { DriversService } from './drivers.service';
   providedIn: 'root',
 })
 export class RacesService {
-  constructor(
-    private http: HttpClient,
-    private spinnerService: SpinnerService,
-    private driversService: DriversService,
-  ) {}
+  private http = inject(HttpClient);
+  private spinnerService = inject(SpinnerService);
+  private driversService = inject(DriversService);
 
   private races_url = 'https://ergast.com/api/f1';
 
