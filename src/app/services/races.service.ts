@@ -1,13 +1,10 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
-  catchError,
   map,
-  Observable,
   of,
   Subject,
   switchMap,
-  throwError,
   tap,
   zip,
   BehaviorSubject,
