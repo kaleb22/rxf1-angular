@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, switchMap, map, of, tap } from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core';
+import { switchMap, map, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 
 import { IDriver, IPath } from '../model/idriver';
 import { SpinnerService } from './spinner.service';
@@ -9,10 +10,10 @@ import { SpinnerService } from './spinner.service';
   providedIn: 'root',
 })
 export class DriversService {
-  constructor(
-    private http: HttpClient,
-    private spinnerService: SpinnerService,
-  ) {}
+  private http = inject(HttpClient);
+  private spinnerService = inject(SpinnerService);
+
+  private url = 'https://ergast.com/api/f1/';
 
   ConstructorsArray = [
     {
@@ -107,14 +108,18 @@ export class DriversService {
     },
   ];
 
-  private url = 'https://ergast.com/api/f1/';
+  seasonSelected = signal('2021');
 
-  private seasonSelectedSubject = new BehaviorSubject<string>('2021');
-  seasonSelected$ = this.seasonSelectedSubject.asObservable();
+  private driverList$ = toObservable(this.seasonSelected).pipe(
+    switchMap((season) => (season.length ? this.getDrivers(season) : of(null))),
+  );
 
-  seasonSelected(seasonSelected: string): void {
+  // expose a signal to consumers instead of the observable
+  driversList = toSignal(this.driverList$, { initialValue: [] });
+
+  onSeasonSelected(seasonSelected: string): void {
     this.spinnerService.showSpinner(true);
-    this.seasonSelectedSubject.next(seasonSelected);
+    this.seasonSelected.set(seasonSelected);
   }
 
   getConstructorInfo(constructorId: string): IPath {
@@ -131,10 +136,6 @@ export class DriversService {
       (constructor: any) => constructorId === constructor.constructorId,
     )?.staticInfo.color as string;
   }
-
-  driverList$ = this.seasonSelected$.pipe(
-    switchMap((season) => (season.length ? this.getDrivers(season) : of(null))),
-  );
 
   private getDrivers(season: string) {
     return this.http.get<any>(`${this.url}${season}/qualifying.json`).pipe(
