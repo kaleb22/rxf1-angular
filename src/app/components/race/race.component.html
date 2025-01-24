@@ -1,9 +1,12 @@
 <div class="select__container">
   <mat-form-field appearance="fill">
     <mat-label>Current Season</mat-label>
-    <mat-select [(ngModel)]="defaultSeason">
-      <mat-option *ngFor="let season of seasons" [value]="season"
-      (onSelectionChange)="onSeasonSelected($event, season)">
+    <mat-select [value]="defaultSeason()">
+      <mat-option
+        *ngFor="let season of seasons"
+        [value]="season"
+        (onSelectionChange)="onSeasonSelected($event, season)"
+      >
         {{ season }}
       </mat-option>
     </mat-select>
@@ -13,26 +16,32 @@
 <div class="body__container">
   <app-body-title [title]="'THE TRACKS'"></app-body-title>
 
-  <div class="race__list__container" *ngIf="raceList$ | async as races">
-    <div class="race__container" *ngFor="let race of races">
-      <img *ngIf="race.imgPath; else noImg" [src]="race.imgPath" width="120" height="120">
+  <div class="race__list__container" *ngIf="raceList()?.length">
+    <div class="race__container" *ngFor="let race of raceList()">
+      <img
+        *ngIf="race.imgPath; else noImg"
+        [src]="race.imgPath"
+        width="120"
+        height="120"
+      />
       <ng-template #noImg>
         <div class="race__container__no-img">
           <p>no img</p>
         </div>
       </ng-template>
-      <p> {{ race.raceName }}</p>
-      <p> {{ race.date | date }} </p>
+      <p>{{ race.raceName }}</p>
+      <p>{{ race.date | date }}</p>
       <button
         class="f1-btn f1-btn__small f1-btn__roboto ripple"
         (click)="openDialog(race.round, race.raceName, race.date)"
-      >details</button>
+      >
+        details
+      </button>
     </div>
   </div>
 
-  <div *ngIf="seasonSelected$ | async as season" class="season">
+  <div *ngIf="seasonSelected() as season" class="season">
     <span class="title--style title--size season--layout">{{ season }}</span>
     <span class="title--style season--size">season</span>
   </div>
 </div>
-

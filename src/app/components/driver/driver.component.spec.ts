@@ -3,24 +3,18 @@ import { provideHttpClient } from '@angular/common/http';
 
 import { DriverComponent } from './driver.component';
 import { DriversService } from '../../services/drivers.service';
-import { SpinnerService } from '../../services/spinner.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('DriverComponent', () => {
   let component: DriverComponent;
   let fixture: ComponentFixture<DriverComponent>;
-  let driverService: DriversService;
-  let spinnerService: SpinnerService;
 
   beforeEach(() => {
-     TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [DriverComponent, BrowserAnimationsModule],
-      providers: [DriversService, SpinnerService, provideHttpClient()]
-    })
-    .compileComponents();
+      providers: [DriversService, provideHttpClient()],
+    }).compileComponents();
 
-    driverService = TestBed.inject(DriversService);
-    spinnerService = TestBed.inject(SpinnerService);
     fixture = TestBed.createComponent(DriverComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
