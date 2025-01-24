@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { map, of, Subject, switchMap, tap, zip, withLatestFrom } from 'rxjs';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 
 import { IRace } from '../model/irace';
 import { IResult } from '../model/iresult';
 import { SpinnerService } from './spinner.service';
 import { DriversService } from './drivers.service';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
