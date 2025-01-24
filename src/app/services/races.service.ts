@@ -1,20 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import {
-  map,
-  of,
-  Subject,
-  switchMap,
-  tap,
-  zip,
-  BehaviorSubject,
-  withLatestFrom,
-} from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core';
+import { map, of, Subject, switchMap, tap, zip, withLatestFrom } from 'rxjs';
 
 import { IRace } from '../model/irace';
 import { IResult } from '../model/iresult';
 import { SpinnerService } from './spinner.service';
 import { DriversService } from './drivers.service';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -68,17 +60,15 @@ export class RacesService {
     )?.imgPath as string;
   }
 
-  // action stream
-  private raceSeasonSelectedSubject = new BehaviorSubject<string>('2021');
-  raceSeasonSelectedAction$ = this.raceSeasonSelectedSubject.asObservable();
+  seasonSelected = signal('2021');
 
   // action stream
   private roundSelectedSubject = new Subject<string>();
   roundSelected$ = this.roundSelectedSubject.asObservable();
 
   selectedSeasonChanged(seasonSelected: string): void {
-    this.raceSeasonSelectedSubject.next(seasonSelected);
-    // when the filter by season changes, clear the select round
+    this.seasonSelected.set(seasonSelected);
+    // when the filter by season changes, clear the selected round
     this.roundSelected('');
   }
 
@@ -86,8 +76,8 @@ export class RacesService {
     this.roundSelectedSubject.next(round);
   }
 
-  standingList$ = this.roundSelected$.pipe(
-    withLatestFrom(this.raceSeasonSelectedAction$),
+  private standingList$ = this.roundSelected$.pipe(
+    withLatestFrom(toObservable(this.seasonSelected)),
     switchMap(([round, season]) =>
       round.length ? this.getStandingList(round, season) : of(null),
     ),
@@ -119,8 +109,8 @@ export class RacesService {
       );
   }
 
-  resultsList$ = this.roundSelected$.pipe(
-    withLatestFrom(this.raceSeasonSelectedAction$),
+  private resultsList$ = this.roundSelected$.pipe(
+    withLatestFrom(toObservable(this.seasonSelected)),
     switchMap(([round, season]) =>
       round.length ? this.getResultsList(round, season) : of(null),
     ),
@@ -150,11 +140,14 @@ export class RacesService {
       );
   }
 
-  raceList$ = this.raceSeasonSelectedAction$.pipe(
+  private raceList$ = toObservable(this.seasonSelected).pipe(
     switchMap((season) =>
       season.length ? this.getRaceList(season) : of(null),
     ),
   );
+
+  // expose a signal instead of an observable
+  raceList = toSignal(this.raceList$);
 
   private getRaceList(season: string) {
     return this.http.get<any>(`${this.races_url}/${season}.json`).pipe(
