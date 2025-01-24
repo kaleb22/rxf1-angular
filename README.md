@@ -17,11 +17,11 @@ Both patterns use a combination of the Async Pipe and action streams to simplify
 You can find more information about these patterns on this article that I wrote on Medium where I discuss each implementation on more details:
 https://medium.com/@kaleb-dalla/rxjs-two-data-retrieve-patterns-for-you-to-use-a30c732ccd33
 
-The project was originally developed with Angular v14. Recently I updated the project to Angular v19 to adress the following topics:
+The project was originally developed with Angular v14. Recently, I updated the project to Angular v19 to address the following topics:
 
 - Standalone components
 - Signals
-- Angular cli schematics to update project
+- Angular CLI schematics to update project
 - Using angular material library
 
 ## 🏎️ From seasons 2021 to 2025 on this project, you can:
