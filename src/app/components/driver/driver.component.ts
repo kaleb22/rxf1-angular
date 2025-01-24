@@ -6,7 +6,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 import { DriversService } from '../../services/drivers.service';
-import { SpinnerService } from '../../services/spinner.service';
 import { BodyTitleComponent } from '../body-title/body-title.component';
 
 @Component({
@@ -23,10 +22,7 @@ import { BodyTitleComponent } from '../body-title/body-title.component';
   ],
 })
 export class DriverComponent {
-  constructor(
-    private driversService: DriversService,
-    private spinnerService: SpinnerService,
-  ) {
+  constructor(private driversService: DriversService) {
     this.seasons = ['2021', '2022', '2023', '2024'];
   }
 
@@ -35,10 +31,7 @@ export class DriverComponent {
 
   seasonSelected = this.driversService.seasonSelected;
 
-  defaultSeason = computed(() => {
-    this.spinnerService.showSpinner(true);
-    return this.seasonSelected();
-  });
+  defaultSeason = computed(() => this.seasonSelected());
 
   /* the behaviour of onSelectionChange is the following:
      A selection change event is fired not only when an option is selected but also when it is deselected

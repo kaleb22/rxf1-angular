@@ -1,7 +1,13 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
+import { inject } from '@angular/core';
+
+import { SpinnerService } from '../services/spinner.service';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
+  const spinnerService = inject(SpinnerService);
+  spinnerService.showSpinner(true);
+
   return next(req).pipe(
     catchError((err: HttpErrorResponse) => {
       let errorMessage = '';

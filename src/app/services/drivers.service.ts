@@ -118,7 +118,6 @@ export class DriversService {
   driversList = toSignal(this.driverList$, { initialValue: [] });
 
   onSeasonSelected(seasonSelected: string): void {
-    this.spinnerService.showSpinner(true);
     this.seasonSelected.set(seasonSelected);
   }
 

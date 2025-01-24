@@ -36,10 +36,7 @@ export class RaceComponent {
   raceName: string;
   seasons: string[];
 
-  defaultSeason = computed(() => {
-    this.spinnerService.showSpinner(true);
-    return this.seasonSelected();
-  });
+  defaultSeason = computed(() => this.seasonSelected());
 
   raceList = this.raceService.raceList;
   seasonSelected = this.raceService.seasonSelected;
