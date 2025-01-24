@@ -28,3 +28,23 @@ The project was originally developed with Angular v14. Recently I updated the pr
 
 - consult list of Drivers per season.
 - consult list of Races per season with final results and championship standings results.
+
+## 👌 Live preview
+
+You can find a live preview of the application [here](https://rxf1-angular.vercel.app). The project was deployed with Vercel.
+
+### Installing and running locally
+
+In order to run the project locally, you just need to download this repo and run the commands:
+
+To install:
+
+```
+npm install
+```
+
+To run:
+
+```
+npm start
+```
