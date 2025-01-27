@@ -1,7 +1,7 @@
 <div class="select__container">
   <mat-form-field appearance="fill">
     <mat-label>Current Season</mat-label>
-    <mat-select [value]="defaultSeason()">
+    <mat-select [value]="defaultSeason()" data-testId="select">
       <mat-option
         *ngFor="let season of seasons"
         [value]="season"
@@ -34,6 +34,7 @@
       <button
         class="f1-btn f1-btn__small f1-btn__roboto ripple"
         (click)="openDialog(race.round, race.raceName, race.date)"
+        data-testId="btn-dialog"
       >
         details
       </button>
