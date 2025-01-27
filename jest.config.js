@@ -5,4 +5,11 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: "coverage",
   collectCoverageFrom: ["src/app/**/*.ts"],
+  coveragePathIgnorePatterns: [
+    "setup-jest.ts",
+    "app.config.ts",
+    "app.routes.ts",
+    ".interface.ts",
+    ".utils.ts",
+  ],
 };
