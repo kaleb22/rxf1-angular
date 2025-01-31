@@ -355,5 +355,19 @@ describe('RacesService', () => {
     jest.spyOn(httpClient, 'get').mockReturnValue(of(mockResultsResponse));
     jest.spyOn(httpClient, 'get').mockReturnValue(of(mockStandingsResponse));
     console.log(mockSignal());
+  }, 10000);
+
+  it('should return null when round and season info is not available', () => {
+    service.finalResults$.subscribe((res) => {
+      expect(res).toBe([null, null]);
+    });
+
+    const mockSignal = service.seasonSelected;
+    service.selectedSeasonChanged('');
+    TestBed.flushEffects();
+
+    service.roundSelected('');
+
+    console.log(mockSignal());
   });
 });
