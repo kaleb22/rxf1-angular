@@ -149,7 +149,7 @@ describe('RacesService', () => {
     expect(raceSignal()).toEqual(null);
   });
 
-  it('should return drivers standings', (done) => {
+  it('should return drivers standings and results', (done) => {
     const mockStandingsResponse = {
       MRData: {
         xmlns: 'http://ergast.com/mrd/1.5',
