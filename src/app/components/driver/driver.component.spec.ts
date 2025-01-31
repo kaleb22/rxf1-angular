@@ -1,9 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
 
 import { DriverComponent } from './driver.component';
 import { DriversService } from '../../services/drivers.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
 
 describe('DriverComponent', () => {
   let component: DriverComponent;
@@ -11,7 +15,13 @@ describe('DriverComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [DriverComponent, BrowserAnimationsModule],
+      imports: [
+        DriverComponent,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        FormsModule,
+      ],
       providers: [DriversService, provideHttpClient()],
     }).compileComponents();
 
@@ -22,5 +32,16 @@ describe('DriverComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call drivers service when season changes', () => {
+    const spyOnSel = jest.spyOn(component, 'onSeasonSelected');
+
+    fixture.debugElement
+      .query(By.directive(MatSelect))
+      .triggerEventHandler('selectionChange', { value: '2021' });
+    fixture.detectChanges();
+
+    expect(spyOnSel).toHaveBeenCalled();
   });
 });
