@@ -1,15 +1,24 @@
 <div class="header__grid">
   <div class="header__grid__layout">
-    <img src="/assets/img/logos/f1_logo.png" width="200" height="200">
+    <img src="/assets/img/logos/f1_logo.png" width="200" height="200" />
     <p>RxF1 - Angular by Kaleb Dalla</p>
   </div>
 
   <div class="header__grid__layout">
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu principal" style="color: #ffffff;">
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="menu principal"
+      style="color: #ffffff"
+    >
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item  (click)="redirectPage('/drivers')">
+      <button
+        mat-menu-item
+        (click)="redirectPage('/drivers')"
+        data-testId="btn-redirect-drivers"
+      >
         <mat-icon fontIcon="speed"></mat-icon>
         <span>Driver's list</span>
       </button>
