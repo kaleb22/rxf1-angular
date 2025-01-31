@@ -45,4 +45,16 @@ describe('errorInterceptor', () => {
     const req = httpTest.expectOne('/test');
     req.flush('', { status: 500, statusText: 'error' });
   });
+
+  it('should handle client errors on requests', () => {
+    httpClient.get('/test').subscribe({
+      error: (e) => {
+        expect(e.status).toEqual(401);
+      },
+    });
+
+    httpTest
+      .expectOne('/test')
+      .error(new ErrorEvent('client side error'), { status: 401 });
+  });
 });
